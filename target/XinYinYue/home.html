@@ -1,0 +1,79 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>json交互测试</title>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            $('#button').click(function (){
+                var u_name=$("#u_name").val();
+                var pass_word=$("#pass_word").val();
+                $.ajax({
+                    url:"testJson",
+                    type:"post",
+                    data:JSON.stringify({u_name:u_name,pass_word:pass_word}),//发送到服务器的数据
+                    contentType:"application/json;charset=UTF-8",
+                    dataType:"text", // 预期服务器返回的数据类型
+                    success:function(backdata){
+                        if(backdata!=null){
+                            alert(backdata)
+                        }
+                    }
+                });
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        function submitImgSize1Upload(){
+
+
+            var option={
+                type:'POST',
+                url:'${pageContext.request.contextPath }/upload/uploadPic.do',
+                dataType:'text',
+                data:{
+                    fileName : 'imgSize1File'
+                },
+                success:function(data){
+
+                    //把json格式的字符串转换成json对象
+                    var jsonObj = $.parseJSON(data);
+
+                    //返回服务器图片路径，把图片路径设置给img标签
+                    $("#imgSize1ImgSrc").attr("src",jsonObj.fullPath);
+                    //数据库保存相对路径
+                    $("#imgSize1").val(jsonObj.relativePath);
+                }
+
+            };
+
+            $("#itemForm").ajaxSubmit(option);
+
+        }
+    </script>
+</head>
+<body>
+<form>
+    u_name:<input type="text" name="u_name" id="u_name"/><br/>
+    pass_word:<input type="password" name="pass_word" id="pass_word"/><br/>
+    <input type="button"  id="button"   value="commit"/>
+</form>
+
+<form id="itemForm" action="http://localhost:8003/XinYinYue_war/saveOrUpdate.do" method="post">
+    <input type="hidden" name="id" value="${item.id }"/>
+    <p><label></label>
+        <img id='imgSize1ImgSrc' src='${picPath }${item.pic }'  height="100" width="100" />
+        <input type='file' id='imgSize1File' name='imgSize1File' class="file" onchange='submitImgSize1Upload()' />
+        <span class="pos" id="imgSize1FileSpan">请上传图片的大小不超过3MB</span>
+        <input type='hidden' id='imgSize1' name='pic' value='' reg="^.+$" tip="亲！您忘记上传图片了。" />
+    </p>
+    <input type="submit" value="提交"/>
+</form>
+</body>
+
+</html>

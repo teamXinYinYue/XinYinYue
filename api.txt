@@ -1,0 +1,105 @@
+
+ $('#button').click(function (){
+ 		var u_name=$("#u_name").val();
+        var pass_word=$("#pass_word").val();
+ $.ajax({
+                    url:"",
+                    type:"post",
+                    data:JSON.stringify({u_name:u_name,pass_word:pass_word}),//发送到服务器的数据
+                    contentType:"application/json;charset=UTF-8",
+                    dataType:"text", // 预期服务器返回的数据类型
+                    success:function(backdata){
+                       
+                    }
+                });
+
+
+url统一格式
+post类型请求url
+项目根url/addXxxx				--添加（根据实际需要上传的可能是集合）
+项目根url/deleteXxxx				--删除，上传的是集合
+项目根url/updateXxxx				--更新
+项目根url/findXxxx				--查找，返回的是集合
+项目根url/findXxxxByXxxx				--条件/模糊查找
+项目根url/XxxxPage			--获取分页类
+项目根url/XxxxPageByXxxx			--获取加入条件/模糊查找后的分页类
+
+例子如下
+
+一、添加歌单音乐
+post类型请求url：
+http://localhost:8003/XinYinYue_war/addPlmusic
+
+上传的JSON：
+
+[
+  {
+    "m_id": 1,
+    "u_id": 1,
+    "p_name": "1"
+  }
+]
+
+
+返回的JSON：
+
+{
+"msg": "歌单歌曲添加成功",
+"obj": null
+}
+
+或者
+
+{
+"msg": "歌单歌曲添加失败，请重试！",
+"obj": null
+}
+
+
+
+二、根据歌单类的u_id查询（上传格式-歌单类，字段键值一个不少，没用到的值可以为空）
+
+post类型请求url：
+http://localhost:8003/XinYinYue_war/findPlmusic
+
+上传的JSON：
+
+{"p_name": "1", "u_id": "1", "p_info": " "}
+
+
+返回的JSON：
+
+{
+"msg": null,
+"obj":[
+{
+"m_id": 1,
+"u_id": 1,
+"p_name": "1"
+}
+]
+
+}
+
+或者
+
+{
+"msg": "查找失败",
+"obj": null
+}
+
+
+JSON的obj内的字段与转换类字段一一对应
+
+以下是转换类
+public class JsonInfo {//普通转换类
+    private String msg;//成功or失败的信息
+    private Object obj;//成功时返回的对象
+
+
+public class MyPageInfo<T> {//分页转换类
+    private List<T> list;//查询结果的对象集合
+    private Integer pageNum;//当前页号
+    private Integer pageSize;//一页大小
+    private Integer totalPage;//总页数
+    private Object obj;//保留的查询条件对象
