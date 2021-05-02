@@ -1,116 +1,60 @@
 package com.xyy.web.controller;
 
-import java.io.PrintWriter;
+import com.xyy.utils.JsonInfo;
+import org.apache.commons.fileupload.FileItem;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.xyy.utils.Commons;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
 /**
  * @author user
  * @date 2021/4/18 - 15:34
  */
 @Controller
 public class UploadController {
+
+    @ResponseBody
     @RequestMapping("uploadPic")
-    public void uploadPic(HttpServletRequest request, String fileName, PrintWriter out){
-        //把Request强转成多部件请求对象
-        MultipartHttpServletRequest mh = (MultipartHttpServletRequest) request;
-        //根据文件名称获取文件对象
-        CommonsMultipartFile cm = (CommonsMultipartFile) mh.getFile(fileName);
-        //获取文件上传流
-        byte[] fbytes = cm.getBytes();
+    public JsonInfo uploadPic(@RequestParam(name = "file",required = false) CommonsMultipartFile cmf, HttpServletRequest req){
+        JsonInfo jsonInfo=new JsonInfo();
+        FileItem fi=cmf.getFileItem();
+        String disklocation = req.getSession().getServletContext().getRealPath("/picture");
+        if (!fi.isFormField()) {
+            String name = fi.getName();
 
-        //文件名称在服务器有可能重复？
-        String newFileName="";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-        newFileName = sdf.format(new Date());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+            String prefix = sdf.format(new Date());
 
-        Random r = new Random();
+            Random r = new Random();
 
-        for(int i =0 ;i<3;i++){
-            newFileName=newFileName+r.nextInt(10);
+            for(int i =0 ;i<3;i++){
+                prefix=prefix+r.nextInt(10);
+            }
+            name=prefix+name;
+
+            String diskpath = disklocation + "/" + name;
+            System.out.println(diskpath);
+            File file = new File(diskpath);
+            try {
+                fi.write(file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            String path=req.getContextPath()+"/picture/"+name;
+            System.out.println(path);
+            jsonInfo.setMsg("上传成功！");
+            jsonInfo.setObj(path);
+            return jsonInfo;
         }
-
-        //获取文件扩展名
-        String originalFilename = cm.getOriginalFilename();
-        String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
-
-        //创建jesy服务器，进行跨服务器上传
-        Client client = Client.create();
-        //把文件关联到远程服务器
-        WebResource resource = client.resource(Commons.PIC_HOST+"/upload/P/"+newFileName+suffix);
-        //上传
-        resource.put(String.class, fbytes);
-
-
-        //ajax回调函数需要会写写什么东西？
-        //图片需要回显：需要图片完整路径
-        //数据库保存图片的相对路径.
-        String fullPath = Commons.PIC_HOST+"/upload/P/"+newFileName+suffix;
-
-        String relativePath="/upload/P/"+newFileName+suffix;
-        //{"":"","":""}
-        String result="{\"fullPath\":\""+fullPath+"\",\"relativePath\":\""+relativePath+"\"}";
-
-        out.print(result);
-
-
+        jsonInfo.setMsg("上传异常！请重试");
+        return jsonInfo;
     }
 
-
-    @RequestMapping("uploadMic")
-    public void uploadMic(HttpServletRequest request, String fileName, PrintWriter out){
-        //把Request强转成多部件请求对象
-        MultipartHttpServletRequest mh = (MultipartHttpServletRequest) request;
-        //根据文件名称获取文件对象
-        CommonsMultipartFile cm = (CommonsMultipartFile) mh.getFile(fileName);
-        //获取文件上传流
-        byte[] fbytes = cm.getBytes();
-
-        //文件名称在服务器有可能重复？
-        String newFileName="";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-        newFileName = sdf.format(new Date());
-
-        Random r = new Random();
-
-        for(int i =0 ;i<3;i++){
-            newFileName=newFileName+r.nextInt(10);
-        }
-
-        //获取文件扩展名
-        String originalFilename = cm.getOriginalFilename();
-        String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
-
-        //创建jesy服务器，进行跨服务器上传
-        Client client = Client.create();
-        //把文件关联到远程服务器
-        WebResource resource = client.resource(Commons.PIC_HOST+"/upload/M/"+newFileName+suffix);
-        //上传
-        resource.put(String.class, fbytes);
-
-
-        //ajax回调函数需要会写写什么东西？
-        //音乐需要回显：需要音乐完整路径
-        //数据库保存音乐的相对路径.
-        String fullPath = Commons.PIC_HOST+"/upload/M/"+newFileName+suffix;
-
-        String relativePath="/upload/M/"+newFileName+suffix;
-        //{"":"","":""}
-        String result="{\"fullPath\":\""+fullPath+"\",\"relativePath\":\""+relativePath+"\"}";
-
-        out.print(result);
-
-
-    }
 }

@@ -76,11 +76,11 @@
 
 <!--  <display-name>XinYinYue_war</display-name>-->
 
-<!--  <welcome-file-list>-->
+  <welcome-file-list>
 
-<!--&lt;!&ndash;    <welcome-file>index.jsp</welcome-file>&ndash;&gt;-->
-<!--    <welcome-file>index.html</welcome-file>-->
+<!--    <welcome-file>index.jsp</welcome-file>-->
+    <welcome-file>/test-html/index.html</welcome-file>
 
-<!--  </welcome-file-list>-->
+  </welcome-file-list>
 
 </web-app>

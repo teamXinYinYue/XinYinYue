@@ -1,0 +1,73 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>json交互测试</title>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            $('#button').click(function (){
+                var u_name=$("#u_name").val();
+                var pass_word=$("#pass_word").val();
+                $.ajax({
+                    url:"testJson",
+                    type:"post",
+                    data:JSON.stringify({u_name:u_name,pass_word:pass_word}),//发送到服务器的数据
+                    contentType:"application/json;charset=UTF-8",
+                    dataType:"text", // 预期服务器返回的数据类型
+                    success:function(backdata){
+                        if(backdata!=null){
+                            alert(backdata)
+                        }
+                    }
+                });
+            })
+
+            $("#buttonUpload").click(function () {
+                var file = $('#fileUpload').get(0).files[0];
+                var fd = new FormData();
+                fd.append("file", file);
+                $.ajax({
+                    url: "uploadPic",
+                    type: "post",
+                    data: fd,
+
+                    contentType: false,
+
+                    dataType: "text",
+
+                    cache: false,
+                    processData: false,
+
+                    success:function(backdata){
+                        var data = jQuery.parseJSON(backdata).obj;
+                        $("#imgshow").attr("src", data);
+                        $("#save").val(data);
+                    },
+                    error: function (backdata) {
+                        if(backdata!=null){
+                            alert(backdata)
+                        }
+                    }
+                });
+            });
+        })
+    </script>
+</head>
+<body>
+<form>
+    u_name:<input type="text" name="u_name" id="u_name"/><br/>
+    pass_word:<input type="password" name="pass_word" id="pass_word"/><br/>
+    <input type="button"  id="button"   value="commit"/>
+</form>
+<div class="img"><img id="imgshow" src="" width="100" height="100" /></div>
+<form>
+    chose picture <input type="file" id="fileUpload" name="file" />
+    <input type="button" id="buttonUpload" value="upload">
+    <input id="save" type="hidden" name="save" value="">
+</form>
+</body>
+</html>

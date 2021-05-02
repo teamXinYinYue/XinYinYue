@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TestController {
 
     @RequestMapping(value = "/index")
-    public String toIndex() {return "index";}
+    public String toIndex() {return "test-html/index";}
 
     @RequestMapping(value = "/skip")
-    public String toSkip() {return "skip";}
+    public String toSkip() {return "test-html/skip";}
 
     @RequestMapping(value = "/home")
-    public String toTestHtml() {return "home";}
+    public String toTestHtml() {return "test-html/home";}
 
     @RequestMapping(value = "/toTestJson")
     public String toTestJson() {return "test/json";}

@@ -19,8 +19,11 @@
 	<mvc:annotation-driven/>
 
 	<mvc:resources location="/js/" mapping="/js/**"/>
-	<mvc:resources location="/foundation-sites-templates/" mapping="/foundation-sites-templates/**"/>
-	<mvc:resources location="/frontwebapp/" mapping="/frontwebapp/**"/>
+	<mvc:resources location="/test-html/" mapping="/test-html/**"/>
+	<mvc:resources location="/picture/" mapping="/picture/**"/>
+
+
+
 
 <!--	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
 <!--		<property name="prefix" value="/WEB-INF/jsps/"></property>-->
