@@ -1,7 +1,10 @@
 package com.xyy.web.controller;
 
+import com.xyy.po.Music;
+import com.xyy.service.MusicCategoryService;
 import com.xyy.utils.JsonInfo;
 import org.apache.commons.fileupload.FileItem;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -22,6 +26,9 @@ import java.util.Random;
  */
 @Controller
 public class UploadController {
+
+    @Autowired
+    private MusicCategoryService musicCategoryService;
 
     @ResponseBody
     @RequestMapping("uploadPic")
@@ -61,19 +68,36 @@ public class UploadController {
         return jsonInfo;
     }
 
-    @ResponseBody
     @RequestMapping("uploadMus")
-    public String uploadMus(HttpServletRequest request) {
+    public String uploadMus(HttpServletRequest request  ,RedirectAttributes redirectAttrs) {
 
 
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         MultipartFile multipartFile=multipartRequest.getFile("file");
-        String cname = multipartRequest.getParameter("cname");
 
+
+//        Integer cid=Integer.parseInt(multipartRequest.getParameter("cid"));
+//        String mname=multipartRequest.getParameter("mname");
+        Integer cid=1;
+        String mname="2";
+        Music music =  new Music();
+//        music.setM_name(mname);
+//        music.setCa_id(cid);
+//        music.setS_id(Integer.parseInt(multipartRequest.getParameter("sid")));
+        music.setM_name(mname);
+        music.setCa_id(cid);
+        music.setS_id(1);
+
+        music.setPriority(1);
+        music.setHot(0);
+        music.setMdate(new java.util.Date());
+
+
+        String cname = musicCategoryService.findMusicCategoryNamebyID(cid);
 
         String fileName = multipartFile.getOriginalFilename();
 
-        String name = fileName;
+        String name = mname+fileName.substring(fileName.lastIndexOf("."));
         String disklocation = request.getSession().getServletContext().getRealPath("/music");
 
 
@@ -97,7 +121,8 @@ public class UploadController {
         String path=request.getContextPath()+"/music/"+"/" + cname + "/"+ name;
         System.out.println(path);
 
-        return "/home";
+        redirectAttrs.addFlashAttribute("music", music);
+        return "redirect:addMusic";
 
     }
 

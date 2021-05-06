@@ -27,7 +27,7 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public int insertMusic(Music music) {
-        return this.musicMapper.insert(music);
+        return this.musicMapper.insertSelective(music);
     }
 
     @Override

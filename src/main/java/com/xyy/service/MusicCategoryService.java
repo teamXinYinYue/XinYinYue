@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface MusicCategoryService {
 
+    String findMusicCategoryNamebyID(Integer cid);
+
     int findMusicCategoryIDbyname(String cname);
 
     List<Category> findMusicCategory();

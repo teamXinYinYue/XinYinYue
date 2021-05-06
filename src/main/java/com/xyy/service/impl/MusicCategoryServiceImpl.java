@@ -17,6 +17,17 @@ public class MusicCategoryServiceImpl implements MusicCategoryService {
 
 
     @Override
+    public String findMusicCategoryNamebyID(Integer cid) {
+        CategoryExample example = new CategoryExample();
+        example.createCriteria().andCa_idEqualTo(cid);
+        List<Category> categoryList= this.categoryMapper.selectByExample(example);
+        for(Category category:categoryList){
+            return category.getCa_name();
+        }
+        return "";
+    }
+
+    @Override
     public int findMusicCategoryIDbyname(String cname) {
         CategoryExample example = new CategoryExample();
         example.createCriteria().andCa_nameLike(cname);
