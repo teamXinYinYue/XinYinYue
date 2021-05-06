@@ -21,11 +21,11 @@ public class PlaylistController {
 
     @ResponseBody
     @RequestMapping(value = "/findPlaylist",method = RequestMethod.POST)
-    public JsonInfo findPlaylist(@RequestBody User user) {
+    public JsonInfo findPlaylist(Integer uid) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        List<Playlist> list=playlistService.findPlaylist(user.getU_id());
+        List<Playlist> list=playlistService.findPlaylist(uid);
 
         if( list.size()!=0) {
 
@@ -40,11 +40,11 @@ public class PlaylistController {
 
     @ResponseBody
     @RequestMapping(value = "/addPlaylist",method = RequestMethod.POST)
-    public JsonInfo addPlaylist(@RequestBody List<Playlist> playlists) {
+    public JsonInfo addPlaylist(Playlist playlist) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        int rows=playlistService.insertPlaylist(playlists);
+        int rows=playlistService.insertPlaylist(playlist);
 
         if(rows<=0) {
 
@@ -61,11 +61,11 @@ public class PlaylistController {
 
     @ResponseBody
     @RequestMapping(value = "/deletePlaylist",method = RequestMethod.POST)
-    public JsonInfo deletePlaylist(@RequestBody List<Playlist> playlists) {
+    public JsonInfo deletePlaylist(String pname,Integer uid) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        int rows=playlistService.deletePlaylist(playlists);
+        int rows=playlistService.deletePlaylist(pname,uid);
 
         if(rows>0) {
 
@@ -101,4 +101,5 @@ public class PlaylistController {
 
         return jsonInfo;
     }
+
 }

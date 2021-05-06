@@ -6,8 +6,8 @@ import java.util.List;
 
 
 public interface PlaylistService {
-    int insertPlaylist(List<Playlist> playlists);
-    int deletePlaylist(List<Playlist> playlists);
+    int insertPlaylist(Playlist playlist);
+    int deletePlaylist(String pname,Integer uid);
     int updatePlaylist(Playlist playlist);
     List<Playlist> findPlaylist(Integer u_id);
 

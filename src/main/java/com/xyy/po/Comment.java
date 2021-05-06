@@ -7,7 +7,7 @@ public class Comment {
 
     private Integer m_id;
 
-    private String co_Info;
+    private String co_info;
 
     private Date co_date;
 
@@ -29,12 +29,12 @@ public class Comment {
         this.m_id = m_id;
     }
 
-    public String getCo_Info() {
-        return co_Info;
+    public String getCo_info() {
+        return co_info;
     }
 
-    public void setCo_Info(String co_Info) {
-        this.co_Info = co_Info == null ? null : co_Info.trim();
+    public void setCo_info(String co_info) {
+        this.co_info = co_info == null ? null : co_info.trim();
     }
 
     public Date getCo_date() {

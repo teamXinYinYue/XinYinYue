@@ -16,7 +16,7 @@ public interface UserService {
 
 	User findUser(String u_name, String pass_word);
 
-	User findUserByName(String u_name);
+	List<User> findUserByName(String u_name);
 
 	List<User> findUser();
 }

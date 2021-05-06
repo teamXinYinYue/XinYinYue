@@ -3,6 +3,7 @@ package com.xyy.service;
 import com.xyy.po.Comment;
 
 import java.util.List;
+import java.util.Set;
 
 
 public interface CommentService {
@@ -12,7 +13,7 @@ public interface CommentService {
 
     int insertComment(Comment comment);
 
-    int deleteComments(List<Comment> comments);
+    int deleteComments(Integer[] coids);
 
     int updateComment(Comment comment);
 

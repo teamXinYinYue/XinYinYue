@@ -5,7 +5,7 @@
     <id column="s_id" jdbcType="INTEGER" property="s_id" />
     <result column="s_name" jdbcType="VARCHAR" property="s_name" />
     <result column="s_info" jdbcType="VARCHAR" property="s_info" />
-    <result column="image_Name" jdbcType="VARCHAR" property="image_Name" />
+    <result column="image_name" jdbcType="VARCHAR" property="image_name" />
     <result column="l_id" jdbcType="INTEGER" property="l_id" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    s_id, s_name, s_info, image_Name, l_id
+    s_id, s_name, s_info, image_name, l_id
   </sql>
   <select id="selectByExample" parameterType="com.xyy.po.SingerExample" resultMap="BaseResultMap">
     select
@@ -101,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.xyy.po.Singer">
     insert into singer (s_id, s_name, s_info, 
-      image_Name, l_id)
+      image_name, l_id)
     values (#{s_id,jdbcType=INTEGER}, #{s_name,jdbcType=VARCHAR}, #{s_info,jdbcType=VARCHAR}, 
-      #{image_Name,jdbcType=VARCHAR}, #{l_id,jdbcType=INTEGER})
+      #{image_name,jdbcType=VARCHAR}, #{l_id,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.xyy.po.Singer">
     insert into singer
@@ -117,8 +117,8 @@
       <if test="s_info != null">
         s_info,
       </if>
-      <if test="image_Name != null">
-        image_Name,
+      <if test="image_name != null">
+        image_name,
       </if>
       <if test="l_id != null">
         l_id,
@@ -134,8 +134,8 @@
       <if test="s_info != null">
         #{s_info,jdbcType=VARCHAR},
       </if>
-      <if test="image_Name != null">
-        #{image_Name,jdbcType=VARCHAR},
+      <if test="image_name != null">
+        #{image_name,jdbcType=VARCHAR},
       </if>
       <if test="l_id != null">
         #{l_id,jdbcType=INTEGER},
@@ -160,8 +160,8 @@
       <if test="record.s_info != null">
         s_info = #{record.s_info,jdbcType=VARCHAR},
       </if>
-      <if test="record.image_Name != null">
-        image_Name = #{record.image_Name,jdbcType=VARCHAR},
+      <if test="record.image_name != null">
+        image_name = #{record.image_name,jdbcType=VARCHAR},
       </if>
       <if test="record.l_id != null">
         l_id = #{record.l_id,jdbcType=INTEGER},
@@ -176,7 +176,7 @@
     set s_id = #{record.s_id,jdbcType=INTEGER},
       s_name = #{record.s_name,jdbcType=VARCHAR},
       s_info = #{record.s_info,jdbcType=VARCHAR},
-      image_Name = #{record.image_Name,jdbcType=VARCHAR},
+      image_name = #{record.image_name,jdbcType=VARCHAR},
       l_id = #{record.l_id,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -191,8 +191,8 @@
       <if test="s_info != null">
         s_info = #{s_info,jdbcType=VARCHAR},
       </if>
-      <if test="image_Name != null">
-        image_Name = #{image_Name,jdbcType=VARCHAR},
+      <if test="image_name != null">
+        image_name = #{image_name,jdbcType=VARCHAR},
       </if>
       <if test="l_id != null">
         l_id = #{l_id,jdbcType=INTEGER},
@@ -204,7 +204,7 @@
     update singer
     set s_name = #{s_name,jdbcType=VARCHAR},
       s_info = #{s_info,jdbcType=VARCHAR},
-      image_Name = #{image_Name,jdbcType=VARCHAR},
+      image_name = #{image_name,jdbcType=VARCHAR},
       l_id = #{l_id,jdbcType=INTEGER}
     where s_id = #{s_id,jdbcType=INTEGER}
   </update>

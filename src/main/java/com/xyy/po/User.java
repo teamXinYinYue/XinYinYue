@@ -1,17 +1,12 @@
 package com.xyy.po;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
-import javax.validation.constraints.Pattern;
-
 public class User {
     private Integer u_id;
 
     private Integer r_id;
-    @NotEmpty(message = "用户名不能为空")
+
     private String u_name;
-    @NotEmpty(message = "密码不能为空")
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{6,20}$",message = "密码格式不正确强密码,必须包含大小写字母和数字的组合，不能使用特殊字符，长度在 6-20 之间")
+
     private String pass_word;
 
     private Integer score;

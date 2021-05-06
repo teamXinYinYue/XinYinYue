@@ -38,15 +38,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findUserByName(String u_name) {
+	public List<User> findUserByName(String u_name) {
 		UserExample example = new UserExample();
-		example.createCriteria().andU_nameEqualTo(u_name);
-		List<User>list = this.userMapper.selectByExample(example);
-		User user=null;
-		for (User user0 : list) {
-			user=user0;
-		}
-		return user;
+		example.createCriteria().andU_nameLike(u_name);
+		List<User> userList = this.userMapper.selectByExample(example);
+		return userList;
 	}
 
 	@Override

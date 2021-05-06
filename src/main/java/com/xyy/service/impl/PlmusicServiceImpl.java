@@ -16,9 +16,12 @@ public class PlmusicServiceImpl implements PlmusicService {
     private PlmusicMapper plmusicMapper;
 
     @Override
-    public int insertPlmusic(List<Plmusic> plmusics) {
-        for (Plmusic plmusic : plmusics){
-            System.out.println(plmusic.getU_id());
+    public int insertPlmusic(Integer[] plmids,String pname,Integer uid) {
+        for (Integer mid : plmids){
+            Plmusic plmusic=new Plmusic();
+            plmusic.setM_id(mid);
+            plmusic.setP_name(pname);
+            plmusic.setU_id(uid);
             if(this.plmusicMapper.insert(plmusic)==0){
                 throw new RuntimeException("未添加成功");
             }
@@ -27,11 +30,11 @@ public class PlmusicServiceImpl implements PlmusicService {
     }
 
     @Override
-    public int deletePlmusic(List<Plmusic> plmusics) {
-        for (Plmusic plmusic : plmusics){
-            if(this.plmusicMapper.deleteByPrimaryKey(plmusic.getM_id()
-                    ,plmusic.getU_id()
-                    ,plmusic.getP_name()
+    public int deletePlmusic(Integer[] plmids,String pname,Integer uid) {
+        for (Integer mid : plmids){
+            if(this.plmusicMapper.deleteByPrimaryKey(mid
+                    ,uid
+                    ,pname
             )==0){
                 throw new RuntimeException("未删除成功");
             }

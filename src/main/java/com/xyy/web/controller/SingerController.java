@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -45,11 +46,11 @@ public class SingerController {
 
     @ResponseBody
     @RequestMapping(value = "/findSingerByName",method = RequestMethod.POST)
-    public JsonInfo findSingerByName(@RequestBody Singer singer) {
+    public JsonInfo findSingerByName(String sname) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        List<Singer> list=singerService.findSingerByName(singer.getS_name());
+        List<Singer> list=singerService.findSingerByName(sname);
 
         if( list.size()!=0) {
 
@@ -64,11 +65,11 @@ public class SingerController {
 
     @ResponseBody
     @RequestMapping(value = "/findSingerBySid",method = RequestMethod.POST)
-    public JsonInfo findSingerBySid(@RequestBody Singer singer) {
+    public JsonInfo findSingerBySid(Integer sid) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        List<Singer> list=singerService.findSingerBySid(singer.getS_id());
+        List<Singer> list=singerService.findSingerBySid(sid);
 
         if( list.size()!=0) {
 
@@ -104,11 +105,11 @@ public class SingerController {
 
     @ResponseBody
     @RequestMapping(value = "/deleteSingers",method = RequestMethod.POST)
-    public JsonInfo deleteSingers(@RequestBody List<Singer> singers) {
+    public JsonInfo deleteSingers(Integer[] sids) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        int rows=singerService.deleteSingers(singers);
+        int rows=singerService.deleteSingers(sids);
 
         if(rows>0) {
 
@@ -147,9 +148,7 @@ public class SingerController {
 
     @ResponseBody
     @RequestMapping(value = "/singerPage")
-    public MyPageInfo<Singer> singerPage(@RequestBody  MyPageInfo<Singer>  myPageInfo) {
-        Integer pageNum=myPageInfo.getPageNum();
-        Integer pageSize=myPageInfo.getPageSize();
+    public MyPageInfo<Singer> singerPage(String sname,Integer pageNum,Integer pageSize) {
         if(pageNum==null){
             pageNum=1;
         }else if(pageNum<1){
@@ -161,7 +160,13 @@ public class SingerController {
         }
 
         PageHelper.startPage(pageNum, pageSize);
-        List<Singer> list = singerService.findSinger();
+        List<Singer> list=null;
+        if(sname!=null){
+            list = singerService.findSingerByName(sname);
+        }else{
+            list = singerService.findSinger();
+        }
+
         PageInfo<Singer> info = new PageInfo(list);
         int totalPage=info.getPages();
 
@@ -170,4 +175,6 @@ public class SingerController {
         return mypage;
 
     }
+
+
 }

@@ -17,6 +17,17 @@ public class MusicCategoryServiceImpl implements MusicCategoryService {
 
 
     @Override
+    public int findMusicCategoryIDbyname(String cname) {
+        CategoryExample example = new CategoryExample();
+        example.createCriteria().andCa_nameLike(cname);
+        List<Category> categoryList= this.categoryMapper.selectByExample(example);
+        for(Category category:categoryList){
+            return category.getCa_id();
+        }
+        return 0;
+    }
+
+    @Override
     public List<Category> findMusicCategory() {
         CategoryExample example = new CategoryExample();
         example.createCriteria().andCa_idIsNotNull();
@@ -30,10 +41,10 @@ public class MusicCategoryServiceImpl implements MusicCategoryService {
 
 
     @Override
-    public int deleteCategorys(List<Category> categorys) {
-        for (Category category : categorys){
+    public int deleteCategorys(Integer [] cids) {
+        for (Integer cid : cids){
             if(this.categoryMapper.deleteByPrimaryKey(
-                    category.getCa_id()
+                    cid
             )==0){
                 throw new RuntimeException("未删除成功");
             }

@@ -64,11 +64,11 @@ public class MusicCategoryController {
 
     @ResponseBody
     @RequestMapping(value = "/deleteMusicCategory",method = RequestMethod.POST)
-    public JsonInfo deleteMusicCategory(@RequestBody List<Category> categorys) {
+    public JsonInfo deleteMusicCategory(Integer[] cids) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        int rows=musicCategoryService.deleteCategorys(categorys);
+        int rows=musicCategoryService.deleteCategorys(cids);
 
         if(rows>0) {
 

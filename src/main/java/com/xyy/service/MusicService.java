@@ -11,11 +11,11 @@ public interface MusicService {
     int insertMusic(Music music);
 
 
-    int deleteMusics(List<Music> musics);
+    int deleteMusics(Integer[] mids);
 
     int updateMusic(Music music);
 
-    List<Music> findMusicByName(String m_name);
+    List<Music> findMusicByMC(Integer cid,Integer sid,String mname);
 
-    List<Music> findMusicBySid(Integer s_id);
+    List<Music> findMusicPaiHang(Integer size);
 }

@@ -1,6 +1,7 @@
 package com.xyy.po;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MusicExample {
@@ -411,6 +412,126 @@ public class MusicExample {
 
         public Criteria andPriorityNotBetween(Integer value1, Integer value2) {
             addCriterion("priority not between", value1, value2, "priority");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotIsNull() {
+            addCriterion("hot is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotIsNotNull() {
+            addCriterion("hot is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotEqualTo(Integer value) {
+            addCriterion("hot =", value, "hot");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotNotEqualTo(Integer value) {
+            addCriterion("hot <>", value, "hot");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotGreaterThan(Integer value) {
+            addCriterion("hot >", value, "hot");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotGreaterThanOrEqualTo(Integer value) {
+            addCriterion("hot >=", value, "hot");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotLessThan(Integer value) {
+            addCriterion("hot <", value, "hot");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotLessThanOrEqualTo(Integer value) {
+            addCriterion("hot <=", value, "hot");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotIn(List<Integer> values) {
+            addCriterion("hot in", values, "hot");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotNotIn(List<Integer> values) {
+            addCriterion("hot not in", values, "hot");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotBetween(Integer value1, Integer value2) {
+            addCriterion("hot between", value1, value2, "hot");
+            return (Criteria) this;
+        }
+
+        public Criteria andHotNotBetween(Integer value1, Integer value2) {
+            addCriterion("hot not between", value1, value2, "hot");
+            return (Criteria) this;
+        }
+
+        public Criteria andMdateIsNull() {
+            addCriterion("mdate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMdateIsNotNull() {
+            addCriterion("mdate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMdateEqualTo(Date value) {
+            addCriterion("mdate =", value, "mdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMdateNotEqualTo(Date value) {
+            addCriterion("mdate <>", value, "mdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMdateGreaterThan(Date value) {
+            addCriterion("mdate >", value, "mdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMdateGreaterThanOrEqualTo(Date value) {
+            addCriterion("mdate >=", value, "mdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMdateLessThan(Date value) {
+            addCriterion("mdate <", value, "mdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMdateLessThanOrEqualTo(Date value) {
+            addCriterion("mdate <=", value, "mdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMdateIn(List<Date> values) {
+            addCriterion("mdate in", values, "mdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMdateNotIn(List<Date> values) {
+            addCriterion("mdate not in", values, "mdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMdateBetween(Date value1, Date value2) {
+            addCriterion("mdate between", value1, value2, "mdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andMdateNotBetween(Date value1, Date value2) {
+            addCriterion("mdate not between", value1, value2, "mdate");
             return (Criteria) this;
         }
     }

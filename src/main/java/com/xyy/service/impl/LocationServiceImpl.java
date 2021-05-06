@@ -34,10 +34,10 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public int deleteLocations(List<Location> locations) {
-        for (Location location : locations){
+    public int deleteLocations(Integer[] lids) {
+        for (Integer lid : lids){
             if(this.locationMapper.deleteByPrimaryKey(
-                    location.getL_id()
+                    lid
             )==0){
                 throw new RuntimeException("未删除成功");
             }

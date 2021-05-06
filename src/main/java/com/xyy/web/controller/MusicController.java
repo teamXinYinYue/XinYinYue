@@ -5,7 +5,9 @@ import com.github.pagehelper.PageInfo;
 import com.xyy.po.Music;
 import com.xyy.po.Singer;
 import com.xyy.po.User;
+import com.xyy.service.MusicCategoryService;
 import com.xyy.service.MusicService;
+import com.xyy.service.SingerService;
 import com.xyy.utils.JsonInfo;
 import com.xyy.utils.MyPageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,52 +26,19 @@ public class MusicController {
     @Autowired
     private MusicService musicService;
 
+    @Autowired
+    private SingerService singerService;
 
-    @ResponseBody
-    @RequestMapping(value = "/findMusic",method = RequestMethod.POST)
-    public JsonInfo findMusic() {
-
-        JsonInfo jsonInfo=new JsonInfo();
-
-        List<Music> list=musicService.findMusic();
-
-        if( list.size()!=0) {
-
-            jsonInfo.setObj(list);
-
-            return jsonInfo;
-        }
-        jsonInfo.setMsg("查找失败");
-
-        return jsonInfo;
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/findMusicByName",method = RequestMethod.POST)
-    public JsonInfo findMusicByName(@RequestBody Music music) {
-
-        JsonInfo jsonInfo=new JsonInfo();
-
-        List<Music> list=musicService.findMusicByName(music.getM_name());
-
-        if( list.size()!=0) {
-
-            jsonInfo.setObj(list);
-
-            return jsonInfo;
-        }
-        jsonInfo.setMsg("查找失败");
-
-        return jsonInfo;
-    }
+    @Autowired
+    private MusicCategoryService musicCategoryService;
 
     @ResponseBody
     @RequestMapping(value = "/findMusicBySid",method = RequestMethod.POST)
-    public JsonInfo findMusicBySid(@RequestBody Singer singer) {
+    public JsonInfo findMusicPaiHang(Integer size) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        List<Music> list=musicService.findMusicBySid(singer.getS_id());
+        List<Music> list=musicService.findMusicPaiHang(size);
 
         if( list.size()!=0) {
 
@@ -105,11 +74,11 @@ public class MusicController {
 
     @ResponseBody
     @RequestMapping(value = "/deleteMusic",method = RequestMethod.POST)
-    public JsonInfo deleteMusic(@RequestBody List<Music> musics) {
+    public JsonInfo deleteMusic(Integer[] mids) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        int rows=musicService.deleteMusics(musics);
+        int rows=musicService.deleteMusics(mids);
 
         if(rows>0) {
 
@@ -148,9 +117,7 @@ public class MusicController {
 
     @ResponseBody
     @RequestMapping(value = "/musicPage")
-    public MyPageInfo<Music> musicPage(@RequestBody  MyPageInfo<Music>  myPageInfo) {
-        Integer pageNum=myPageInfo.getPageNum();
-        Integer pageSize=myPageInfo.getPageSize();
+    public MyPageInfo<Music> musicPage(Integer pageNum,Integer pageSize) {
         if(pageNum==null){
             pageNum=1;
         }else if(pageNum<1){
@@ -171,4 +138,41 @@ public class MusicController {
         return mypage;
 
     }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/findMusicByMC",method = RequestMethod.POST)
+    public MyPageInfo<Music> musicPageByMC(String cname,String sname,String mname,Integer pageNum,Integer pageSize) {
+        Integer cid=null;
+        Integer sid=null;
+
+        if(cname!=null){
+            cid=musicCategoryService.findMusicCategoryIDbyname(cname);
+        }
+        if(sname!=null){
+            sid=singerService.findSingerIDByName(sname);
+        }
+        if(pageNum==null){
+            pageNum=1;
+        }else if(pageNum<1){
+            pageNum=1;
+        }
+
+        if(pageSize==null){
+            pageSize=3;
+        }
+
+
+        PageHelper.startPage(pageNum, pageSize);
+        List<Music> list = musicService.findMusicByMC(cid,sid,mname);
+        PageInfo<Music> info = new PageInfo(list);
+        int totalPage=info.getPages();
+
+
+        MyPageInfo<Music> mypage=new MyPageInfo<>(list,pageNum,pageSize,totalPage);
+        return mypage;
+
+    }
+
+
 }

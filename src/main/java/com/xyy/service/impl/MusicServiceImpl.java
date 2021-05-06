@@ -22,19 +22,8 @@ public class MusicServiceImpl implements MusicService {
         return this.musicMapper.selectByExample(example);
     }
 
-    @Override
-    public List<Music> findMusicByName(String m_name) {
-        MusicExample example = new MusicExample();
-        example.createCriteria().andM_nameLike(m_name);
-        return this.musicMapper.selectByExample(example);
-    }
 
-    @Override
-    public List<Music> findMusicBySid(Integer s_id) {
-        MusicExample example = new MusicExample();
-        example.createCriteria().andS_idEqualTo(s_id);
-        return this.musicMapper.selectByExample(example);
-    }
+
 
     @Override
     public int insertMusic(Music music) {
@@ -42,10 +31,10 @@ public class MusicServiceImpl implements MusicService {
     }
 
     @Override
-    public int deleteMusics(List<Music> musics) {
-        for (Music music : musics){
+    public int deleteMusics(Integer[] mids) {
+        for (Integer mid : mids){
             if(this.musicMapper.deleteByPrimaryKey(
-                    music.getM_id()
+                    mid
             )==0){
                 throw new RuntimeException("未删除成功");
             }
@@ -60,5 +49,27 @@ public class MusicServiceImpl implements MusicService {
         return this.musicMapper.updateByExample(music,example);
     }
 
+    @Override
+    public List<Music> findMusicByMC(Integer cid,Integer sid,String mname) {
+        MusicExample example = new MusicExample();
+        MusicExample.Criteria criteria = example.createCriteria();
+        if(cid!=null){
+            criteria.andCa_idEqualTo(cid);
+        }
+        if(sid!=null){
+            criteria.andS_idEqualTo(sid);
+        }
+        if(mname!=null){
+            criteria.andM_nameLike(mname);
+        }
+        example.setOrderByClause("hot desc");
+        return this.musicMapper.selectByExample(example);
+    }
 
+    @Override
+    public List<Music> findMusicPaiHang(Integer size) {
+        MusicExample example = new MusicExample();
+                example.setOrderByClause("hot desc limit 0,10");
+        return this.musicMapper.selectByExample(example);
+    }
 }

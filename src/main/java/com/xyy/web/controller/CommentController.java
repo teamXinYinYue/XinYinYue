@@ -26,11 +26,11 @@ public class CommentController {
 
     @ResponseBody
     @RequestMapping(value = "/findCommentByMusic",method = RequestMethod.POST)
-    public JsonInfo findCommentByMusic(@RequestBody Music music) {
+    public JsonInfo findCommentByMusic(Integer mid) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        List<Comment> list=commentService.findCommentByMusic(music.getM_id());
+        List<Comment> list=commentService.findCommentByMusic(mid);
 
         if( list.size()!=0) {
 
@@ -45,11 +45,11 @@ public class CommentController {
 
     @ResponseBody
     @RequestMapping(value = "/findCommentByUid",method = RequestMethod.POST)
-    public JsonInfo findCommentByUid(@RequestBody User user) {
+    public JsonInfo findCommentByUid(Integer uid) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        List<Comment> list=commentService.findCommentByUid(user.getU_id());
+        List<Comment> list=commentService.findCommentByUid(uid);
 
         if( list.size()!=0) {
 
@@ -85,11 +85,11 @@ public class CommentController {
 
     @ResponseBody
     @RequestMapping(value = "/deleteComment",method = RequestMethod.POST)
-    public JsonInfo deleteComment(@RequestBody List<Comment> comments) {
+    public JsonInfo deleteComment(Integer[] coids) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        int rows=commentService.deleteComments(comments);
+        int rows=commentService.deleteComments(coids);
 
         if(rows>0) {
 
@@ -128,10 +128,7 @@ public class CommentController {
 
     @ResponseBody
     @RequestMapping(value = "/musicPageByMid")
-    public  MyPageInfo<Comment> musicPageByMid(@RequestBody  MyPageInfo<Comment> myPageInfo) {
-        Integer pageNum=myPageInfo.getPageNum();
-        Integer pageSize=myPageInfo.getPageSize();
-        Music music=(Music)myPageInfo.getObj();
+    public  MyPageInfo<Comment> commentPageByMid(Integer mid,Integer pageNum,Integer pageSize) {
         if(pageNum==null){
             pageNum=1;
         }else if(pageNum<1){
@@ -143,7 +140,7 @@ public class CommentController {
         }
 
         PageHelper.startPage(pageNum, pageSize);
-        List<Comment> list = commentService.findCommentByMusic(music.getM_id());
+        List<Comment> list = commentService.findCommentByMusic(mid);
         PageInfo<Comment> info = new PageInfo(list);
         int totalPage=info.getPages();
 
@@ -155,10 +152,7 @@ public class CommentController {
 
     @ResponseBody
     @RequestMapping(value = "/musicPageByUid")
-    public  MyPageInfo<Comment> musicPageByUid(@RequestBody MyPageInfo<Comment> myPageInfo) {
-        Integer pageNum=myPageInfo.getPageNum();
-        Integer pageSize=myPageInfo.getPageSize();
-        User user=(User)myPageInfo.getObj();
+    public  MyPageInfo<Comment> commentPageByUid(Integer uid,Integer pageNum,Integer pageSize) {
         if(pageNum==null){
             pageNum=1;
         }else if(pageNum<1){
@@ -170,7 +164,7 @@ public class CommentController {
         }
 
         PageHelper.startPage(pageNum, pageSize);
-        List<Comment> list = commentService.findCommentByUid(user.getU_id());
+        List<Comment> list = commentService.findCommentByUid(uid);
         PageInfo<Comment> info = new PageInfo(list);
         int totalPage=info.getPages();
 

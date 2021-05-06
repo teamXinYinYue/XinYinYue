@@ -42,11 +42,11 @@ public class LocationController {
 
     @ResponseBody
     @RequestMapping(value = "/findLocationByCategory",method = RequestMethod.POST)
-    public JsonInfo findLocationByCategory(@RequestBody Category category) {
+    public JsonInfo findLocationByCategory(Integer lid) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        List<Location> list=locationService.findLocationByLid(category.getL_id());
+        List<Location> list=locationService.findLocationByLid(lid);
 
         if( list.size()!=0) {
 
@@ -61,11 +61,11 @@ public class LocationController {
 
     @ResponseBody
     @RequestMapping(value = "/findLocationBySinger",method = RequestMethod.POST)
-    public JsonInfo findLocationBySinger(@RequestBody Singer singer) {
+    public JsonInfo findLocationBySinger(Integer sid) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        List<Location> list=locationService.findLocationByLid(singer.getL_id());
+        List<Location> list=locationService.findLocationByLid(sid);
 
         if( list.size()!=0) {
 
@@ -101,11 +101,11 @@ public class LocationController {
 
     @ResponseBody
     @RequestMapping(value = "/deleteLocation",method = RequestMethod.POST)
-    public JsonInfo deleteLocation(@RequestBody List<Location> locations) {
+    public JsonInfo deleteLocation(Integer[] lids) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        int rows=locationService.deleteLocations(locations);
+        int rows=locationService.deleteLocations(lids);
 
         if(rows>0) {
 
@@ -144,9 +144,7 @@ public class LocationController {
 
     @ResponseBody
     @RequestMapping(value = "/LocationPage")
-    public  MyPageInfo<Location> LocationPage(@RequestBody  MyPageInfo<Location> myPageInfo) {
-        Integer pageNum=myPageInfo.getPageNum();
-        Integer pageSize=myPageInfo.getPageSize();
+    public  MyPageInfo<Location> LocationPage(Integer pageNum,Integer pageSize) {
         if(pageNum==null){
             pageNum=1;
         }else if(pageNum<1){
@@ -170,10 +168,7 @@ public class LocationController {
 
     @ResponseBody
     @RequestMapping(value = "/LocationPageByCategory")
-    public  MyPageInfo<Location> LocationPageByCategory(@RequestBody  MyPageInfo<Location> myPageInfo) {
-        Integer pageNum=myPageInfo.getPageNum();
-        Integer pageSize=myPageInfo.getPageSize();
-        Category category=(Category)myPageInfo.getObj();
+    public  MyPageInfo<Location> LocationPageByCategory(Integer clid,Integer pageNum,Integer pageSize) {
         if(pageNum==null){
             pageNum=1;
         }else if(pageNum<1){
@@ -185,7 +180,7 @@ public class LocationController {
         }
 
         PageHelper.startPage(pageNum, pageSize);
-        List<Location> list = locationService.findLocationByLid(category.getL_id());
+        List<Location> list = locationService.findLocationByLid(clid);
         PageInfo<Location> info = new PageInfo(list);
         int totalPage=info.getPages();
 
@@ -197,10 +192,7 @@ public class LocationController {
 
     @ResponseBody
     @RequestMapping(value = "/musicPageBySinger")
-    public MyPageInfo<Location> musicPageBySinger(@RequestBody MyPageInfo<Location> myPageInfo) {
-        Integer pageNum=myPageInfo.getPageNum();
-        Integer pageSize=myPageInfo.getPageSize();
-        Singer singer=(Singer)myPageInfo.getObj();
+    public MyPageInfo<Location> musicPageBySinger(Integer slid,Integer pageNum,Integer pageSize) {
         if(pageNum==null){
             pageNum=1;
         }else if(pageNum<1){
@@ -212,7 +204,7 @@ public class LocationController {
         }
 
         PageHelper.startPage(pageNum, pageSize);
-        List<Location> list = locationService.findLocationByLid(singer.getL_id());
+        List<Location> list = locationService.findLocationByLid(slid);
         PageInfo<Location> info = new PageInfo(list);
         int totalPage=info.getPages();
 

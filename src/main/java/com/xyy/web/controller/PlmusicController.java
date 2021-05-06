@@ -26,11 +26,11 @@ public class PlmusicController {
 
     @ResponseBody
     @RequestMapping(value = "/findPlmusic",method = RequestMethod.POST)
-    public JsonInfo findPlmusic(@RequestBody Playlist playlist) {
+    public JsonInfo findPlmusic(Integer uid,String pname) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        List<Plmusic> list=plmusicService.findPlmusic(playlist.getU_id(),playlist.getP_name());
+        List<Plmusic> list=plmusicService.findPlmusic(uid,pname);
 
         if( list.size()!=0) {
 
@@ -45,11 +45,11 @@ public class PlmusicController {
 
     @ResponseBody
     @RequestMapping(value = "/addPlmusic",method = RequestMethod.POST)
-    public JsonInfo addPlmusic(@RequestBody List<Plmusic> plmusics) {
+    public JsonInfo addPlmusic(Integer[] plmids,String pname,Integer uid) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        int rows=plmusicService.insertPlmusic(plmusics);
+        int rows=plmusicService.insertPlmusic(plmids,pname,uid);
 
         if(rows<=0) {
 
@@ -66,11 +66,11 @@ public class PlmusicController {
 
     @ResponseBody
     @RequestMapping(value = "/deletePlmusic",method = RequestMethod.POST)
-    public JsonInfo deletePlmusic(@RequestBody List<Plmusic> plmusics) {
+    public JsonInfo deletePlmusic(Integer[] plmids,String pname,Integer uid) {
 
         JsonInfo jsonInfo=new JsonInfo();
 
-        int rows=plmusicService.deletePlmusic(plmusics);
+        int rows=plmusicService.deletePlmusic(plmids,pname,uid);
 
         if(rows>0) {
 

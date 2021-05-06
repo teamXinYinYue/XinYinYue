@@ -8,11 +8,13 @@ import java.util.List;
 
 public interface MusicCategoryService {
 
+    int findMusicCategoryIDbyname(String cname);
+
     List<Category> findMusicCategory();
 
     int insertCategory(Category category);
 
-    int deleteCategorys(List<Category> categorys);
+    int deleteCategorys(Integer [] cids);
 
     int updateMusicCategory(Category category);
 }

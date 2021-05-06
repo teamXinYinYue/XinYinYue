@@ -54,6 +54,7 @@
                     }
                 });
             });
+
         })
     </script>
 </head>
@@ -68,6 +69,11 @@
     chose picture <input type="file" id="fileUpload" name="file" />
     <input type="button" id="buttonUpload" value="upload">
     <input id="save" type="hidden" name="save" value="">
+</form>
+<form action="uploadMus" method="post" enctype="multipart/form-data">
+    歌曲类型：<input type="text"  name="cname" value="relax"/>
+    文件：<input type="file"  name="file" value="点击上传" />
+    <input type="submit" value="提交" />
 </form>
 </body>
 </html>

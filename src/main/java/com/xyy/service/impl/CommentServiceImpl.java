@@ -33,10 +33,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public int deleteComments(List<Comment> comments) {
-        for (Comment comment : comments){
+    public int deleteComments(Integer[] coids) {
+        for (Integer coid : coids){
             if(this.commentMapper.deleteByPrimaryKey(
-                    comment.getId()
+                    coid
             )==0){
                 throw new RuntimeException("未删除成功");
             }

@@ -1,5 +1,7 @@
 package com.xyy.po;
 
+import java.util.Date;
+
 public class Music {
     private Integer m_id;
 
@@ -10,6 +12,10 @@ public class Music {
     private Integer s_id;
 
     private Integer priority;
+
+    private Integer hot;
+
+    private Date mdate;
 
     public Integer getM_id() {
         return m_id;
@@ -49,5 +55,21 @@ public class Music {
 
     public void setPriority(Integer priority) {
         this.priority = priority;
+    }
+
+    public Integer getHot() {
+        return hot;
+    }
+
+    public void setHot(Integer hot) {
+        this.hot = hot;
+    }
+
+    public Date getMdate() {
+        return mdate;
+    }
+
+    public void setMdate(Date mdate) {
+        this.mdate = mdate;
     }
 }

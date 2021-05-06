@@ -6,10 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -54,7 +57,50 @@ public class UploadController {
             return jsonInfo;
         }
         jsonInfo.setMsg("上传异常！请重试");
+
         return jsonInfo;
     }
+
+    @ResponseBody
+    @RequestMapping("uploadMus")
+    public String uploadMus(HttpServletRequest request) {
+
+
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        MultipartFile multipartFile=multipartRequest.getFile("file");
+        String cname = multipartRequest.getParameter("cname");
+
+
+        String fileName = multipartFile.getOriginalFilename();
+
+        String name = fileName;
+        String disklocation = request.getSession().getServletContext().getRealPath("/music");
+
+
+        String diskpath = disklocation+"/" + cname + "/" + name;
+        String diskpath_dir=disklocation+"/" + cname;
+
+        System.out.println(diskpath);
+
+        File dir=new File(diskpath_dir);
+        if(!dir.exists()){
+            dir.mkdir();
+        }
+
+        File file = new File(diskpath);
+        try {
+            multipartFile.transferTo(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String path=request.getContextPath()+"/music/"+"/" + cname + "/"+ name;
+        System.out.println(path);
+
+        return "/home";
+
+    }
+
+
 
 }

@@ -92,7 +92,7 @@ public class UserController {
 
 	@ResponseBody
 	@RequestMapping(value = "/deleteUser")
-	public JsonInfo deleteUser(@RequestBody  Integer u_id) {
+	public JsonInfo deleteUser(Integer u_id) {
 		JsonInfo jsonInfo=new JsonInfo();
 		int rows=userService.deleteUser(u_id);
 
@@ -111,9 +111,7 @@ public class UserController {
 
 	@ResponseBody
 	@RequestMapping(value = "/userPage")
-	public MyPageInfo<User> userPage(@RequestBody  MyPageInfo<User>  myPageInfo) {
-		Integer pageNum=myPageInfo.getPageNum();
-		Integer pageSize=myPageInfo.getPageSize();
+	public MyPageInfo<User> userPage(String uname,Integer pageNum,Integer pageSize) {
 		if(pageNum==null){
 			pageNum=1;
 		}else if(pageNum<1){
@@ -125,7 +123,13 @@ public class UserController {
 		}
 
 		PageHelper.startPage(pageNum, pageSize);
-		List<User> list = userService.findUser();
+		List<User> list =null;
+		if(uname!=null){
+			list =userService.findUserByName(uname);
+		}else{
+			list =userService.findUser();
+		}
+
 		PageInfo<User> info = new PageInfo(list);
 		int totalPage=info.getPages();
 

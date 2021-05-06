@@ -7,7 +7,7 @@ public class Singer {
 
     private String s_info;
 
-    private String image_Name;
+    private String image_name;
 
     private Integer l_id;
 
@@ -35,12 +35,12 @@ public class Singer {
         this.s_info = s_info == null ? null : s_info.trim();
     }
 
-    public String getImage_Name() {
-        return image_Name;
+    public String getImage_name() {
+        return image_name;
     }
 
-    public void setImage_Name(String image_Name) {
-        this.image_Name = image_Name == null ? null : image_Name.trim();
+    public void setImage_name(String image_name) {
+        this.image_name = image_name == null ? null : image_name.trim();
     }
 
     public Integer getL_id() {

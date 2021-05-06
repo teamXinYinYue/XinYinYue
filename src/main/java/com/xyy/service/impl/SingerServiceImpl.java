@@ -1,6 +1,8 @@
 package com.xyy.service.impl;
 
 import com.xyy.dao.SingerMapper;
+import com.xyy.po.Category;
+import com.xyy.po.CategoryExample;
 import com.xyy.po.Singer;
 import com.xyy.po.SingerExample;
 import com.xyy.service.SingerService;
@@ -23,6 +25,17 @@ public class SingerServiceImpl implements SingerService {
     }
 
     @Override
+    public int findSingerIDByName(String s_name) {
+        SingerExample example = new SingerExample();
+        example.createCriteria().andS_nameLike(s_name);
+        List<Singer> singerList= this.singerMapper.selectByExample(example);
+        for(Singer singer:singerList){
+            return singer.getS_id();
+        }
+        return 0;
+    }
+
+    @Override
     public List<Singer> findSingerByName(String s_name) {
         SingerExample example = new SingerExample();
         example.createCriteria().andS_nameLike(s_name);
@@ -42,10 +55,10 @@ public class SingerServiceImpl implements SingerService {
     }
 
     @Override
-    public int deleteSingers(List<Singer> singers) {
-        for (Singer singer : singers){
+    public int deleteSingers(Integer[] sids) {
+        for (Integer sid : sids){
             if(this.singerMapper.deleteByPrimaryKey(
-                    singer.getS_id()
+                    sid
             )==0){
                 throw new RuntimeException("未删除成功");
             }

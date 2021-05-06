@@ -17,26 +17,15 @@ public class PlaylistServiceImpl implements PlaylistService {
     private PlaylistMapper playlistMapper;
 
     @Override
-    public int insertPlaylist(List<Playlist> playlists) {
-        for (Playlist playlist : playlists){
-            if(this.playlistMapper.insert(playlist)==0){
-                throw new RuntimeException("未添加成功");
-            }
-        }
-        return 1;
+    public int insertPlaylist(Playlist playlist) {
+        return this.playlistMapper.insert(playlist);
     }
 
     @Override
-    public int deletePlaylist(List<Playlist> playlists) {
-        for (Playlist playlist : playlists){
-            if(this.playlistMapper.deleteByPrimaryKey(
-                    playlist.getP_name()
-                    ,playlist.getU_id()
-            )==0){
-                throw new RuntimeException("未删除成功");
-            }
-        }
-        return 1;
+    public int deletePlaylist(String pname,Integer uid) {
+        return this.playlistMapper.deleteByPrimaryKey(
+                pname
+                ,uid);
     }
 
     @Override

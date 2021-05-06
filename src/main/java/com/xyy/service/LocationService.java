@@ -13,7 +13,7 @@ public interface LocationService {
 
     int insertLocation(Location location);
 
-    int deleteLocations(List<Location> locations);
+    int deleteLocations(Integer[] lids);
 
     int updateLocation(Location location);
 }

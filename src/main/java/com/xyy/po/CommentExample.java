@@ -252,73 +252,73 @@ public class CommentExample {
             return (Criteria) this;
         }
 
-        public Criteria andCo_InfoIsNull() {
-            addCriterion("co_Info is null");
+        public Criteria andCo_infoIsNull() {
+            addCriterion("co_info is null");
             return (Criteria) this;
         }
 
-        public Criteria andCo_InfoIsNotNull() {
-            addCriterion("co_Info is not null");
+        public Criteria andCo_infoIsNotNull() {
+            addCriterion("co_info is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCo_InfoEqualTo(String value) {
-            addCriterion("co_Info =", value, "co_Info");
+        public Criteria andCo_infoEqualTo(String value) {
+            addCriterion("co_info =", value, "co_info");
             return (Criteria) this;
         }
 
-        public Criteria andCo_InfoNotEqualTo(String value) {
-            addCriterion("co_Info <>", value, "co_Info");
+        public Criteria andCo_infoNotEqualTo(String value) {
+            addCriterion("co_info <>", value, "co_info");
             return (Criteria) this;
         }
 
-        public Criteria andCo_InfoGreaterThan(String value) {
-            addCriterion("co_Info >", value, "co_Info");
+        public Criteria andCo_infoGreaterThan(String value) {
+            addCriterion("co_info >", value, "co_info");
             return (Criteria) this;
         }
 
-        public Criteria andCo_InfoGreaterThanOrEqualTo(String value) {
-            addCriterion("co_Info >=", value, "co_Info");
+        public Criteria andCo_infoGreaterThanOrEqualTo(String value) {
+            addCriterion("co_info >=", value, "co_info");
             return (Criteria) this;
         }
 
-        public Criteria andCo_InfoLessThan(String value) {
-            addCriterion("co_Info <", value, "co_Info");
+        public Criteria andCo_infoLessThan(String value) {
+            addCriterion("co_info <", value, "co_info");
             return (Criteria) this;
         }
 
-        public Criteria andCo_InfoLessThanOrEqualTo(String value) {
-            addCriterion("co_Info <=", value, "co_Info");
+        public Criteria andCo_infoLessThanOrEqualTo(String value) {
+            addCriterion("co_info <=", value, "co_info");
             return (Criteria) this;
         }
 
-        public Criteria andCo_InfoLike(String value) {
-            addCriterion("co_Info like", value, "co_Info");
+        public Criteria andCo_infoLike(String value) {
+            addCriterion("co_info like", value, "co_info");
             return (Criteria) this;
         }
 
-        public Criteria andCo_InfoNotLike(String value) {
-            addCriterion("co_Info not like", value, "co_Info");
+        public Criteria andCo_infoNotLike(String value) {
+            addCriterion("co_info not like", value, "co_info");
             return (Criteria) this;
         }
 
-        public Criteria andCo_InfoIn(List<String> values) {
-            addCriterion("co_Info in", values, "co_Info");
+        public Criteria andCo_infoIn(List<String> values) {
+            addCriterion("co_info in", values, "co_info");
             return (Criteria) this;
         }
 
-        public Criteria andCo_InfoNotIn(List<String> values) {
-            addCriterion("co_Info not in", values, "co_Info");
+        public Criteria andCo_infoNotIn(List<String> values) {
+            addCriterion("co_info not in", values, "co_info");
             return (Criteria) this;
         }
 
-        public Criteria andCo_InfoBetween(String value1, String value2) {
-            addCriterion("co_Info between", value1, value2, "co_Info");
+        public Criteria andCo_infoBetween(String value1, String value2) {
+            addCriterion("co_info between", value1, value2, "co_info");
             return (Criteria) this;
         }
 
-        public Criteria andCo_InfoNotBetween(String value1, String value2) {
-            addCriterion("co_Info not between", value1, value2, "co_Info");
+        public Criteria andCo_infoNotBetween(String value1, String value2) {
+            addCriterion("co_info not between", value1, value2, "co_info");
             return (Criteria) this;
         }
 
