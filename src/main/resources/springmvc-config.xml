@@ -21,6 +21,7 @@
 	<mvc:resources location="/js/" mapping="/js/**"/>
 	<mvc:resources location="/test-html/" mapping="/test-html/**"/>
 	<mvc:resources location="/picture/" mapping="/picture/**"/>
+	<mvc:resources location="/music/" mapping="/music/**"/>
 
 
 
@@ -47,7 +48,7 @@
 
 	<!-- 文件上传解析器 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="80240000"></property>
+		<property name="maxUploadSize" value="200240000"></property>
 	</bean>
 
 <!--		<mvc:interceptors>-->

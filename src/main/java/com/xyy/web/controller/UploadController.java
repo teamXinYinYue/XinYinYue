@@ -49,9 +49,15 @@ public class UploadController {
             }
             name=prefix+name;
 
-            String diskpath = disklocation + "/" + name;
-            System.out.println(diskpath);
-            File file = new File(diskpath);
+            String diskpath_file = disklocation + "/" + name;
+            System.out.println(diskpath_file);
+
+            File dir=new File(disklocation);
+            if(!dir.exists()){
+                dir.mkdir();
+            }
+
+            File file = new File(diskpath_file);
             try {
                 fi.write(file);
             } catch (Exception e) {
@@ -67,6 +73,7 @@ public class UploadController {
 
         return jsonInfo;
     }
+
 
     @RequestMapping("uploadMus")
     public String uploadMus(HttpServletRequest request  ,RedirectAttributes redirectAttrs) {
@@ -101,27 +108,31 @@ public class UploadController {
         String disklocation = request.getSession().getServletContext().getRealPath("/music");
 
 
-        String diskpath = disklocation+"/" + cname + "/" + name;
+        String diskpath_file = disklocation+"/" + cname + "/" + name;
         String diskpath_dir=disklocation+"/" + cname;
 
-        System.out.println(diskpath);
+        System.out.println(diskpath_file);
 
         File dir=new File(diskpath_dir);
         if(!dir.exists()){
             dir.mkdir();
         }
 
-        File file = new File(diskpath);
+        File file = new File(diskpath_file);
         try {
             multipartFile.transferTo(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        String path=request.getContextPath()+"/music/"+"/" + cname + "/"+ name;
+        String path=request.getContextPath()+"/music/" + cname + "/"+ name;
         System.out.println(path);
 
         redirectAttrs.addFlashAttribute("music", music);
+
+        JsonInfo jsonInfo=new JsonInfo();
+        jsonInfo.setObj(path);
+        redirectAttrs.addFlashAttribute("jsonInfo", jsonInfo);
         return "redirect:addMusic";
 
     }

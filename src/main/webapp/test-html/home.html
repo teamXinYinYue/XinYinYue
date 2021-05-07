@@ -55,6 +55,38 @@
                 });
             });
 
+            $("#musicButtonUpload").click(function () {
+                var file = $('#fileName').get(0).files[0];
+                var cname = $('#cname').val();
+                var fd = new FormData();
+                fd.append("file", file);
+                fd.append("cname", cname);
+                $.ajax({
+                    url: "uploadMus",
+                    type: "post",
+                    data: fd,
+
+                    contentType: false,
+
+                    dataType: "text",
+
+                    cache: false,
+                    processData: false,
+
+                    success:function(backdata){
+                        var data = jQuery.parseJSON(backdata).obj;
+                        alert(data);
+                        $("#showmusic").attr("src", data);
+
+                    },
+                    error: function (backdata) {
+                        if(backdata!=null){
+                            alert(backdata)
+                        }
+                    }
+                });
+            });
+
         })
     </script>
 </head>
@@ -70,10 +102,13 @@
     <input type="button" id="buttonUpload" value="upload">
     <input id="save" type="hidden" name="save" value="">
 </form>
-<form action="uploadMus" method="post" enctype="multipart/form-data">
+<div class="music"><audio id="showmusic" src="../music/1/2.mp3" controls="controls"></audio></div>
+<form>
     歌曲类型：<input type="text"  name="cname" value="relax"/>
-    文件：<input type="file"  name="file" value="点击上传" />
-    <input type="submit" value="提交" />
+    文件：<input type="file" id="fileName" name="fileName" value="点击上传" />
+    <input type="button" id="musicButtonUpload" value="upload" />
 </form>
+
+
 </body>
 </html>

@@ -53,9 +53,8 @@ public class MusicController {
 
     @ResponseBody
     @RequestMapping(value = "/addMusic",method = RequestMethod.GET)
-    public JsonInfo addMusic(Music music) {
+    public JsonInfo addMusic(Music music,  JsonInfo jsonInfo) {
 
-        JsonInfo jsonInfo=new JsonInfo();
 
         int rows=musicService.insertMusic(music);
 
@@ -72,6 +71,7 @@ public class MusicController {
 
             jsonInfo.setMsg("添加成功");
         }
+
 
         return jsonInfo;
     }
