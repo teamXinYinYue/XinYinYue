@@ -17,6 +17,8 @@ public class Music {
 
     private Date mdate;
 
+    private String path;
+
     public Integer getM_id() {
         return m_id;
     }
@@ -71,5 +73,13 @@ public class Music {
 
     public void setMdate(Date mdate) {
         this.mdate = mdate;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path == null ? null : path.trim();
     }
 }

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xyy.dao.AdminMapper">
   <resultMap id="BaseResultMap" type="com.xyy.po.Admin">
-    <id column="a_id" jdbcType="INTEGER" property="a_id" />
-    <result column="a_name" jdbcType="VARCHAR" property="a_name" />
-    <result column="a_password" jdbcType="VARCHAR" property="a_password" />
+    <id column="admin_id" jdbcType="INTEGER" property="admin_id" />
+    <result column="admin_uname" jdbcType="VARCHAR" property="admin_uname" />
+    <result column="admin_pass_word" jdbcType="VARCHAR" property="admin_pass_word" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    a_id, a_name, a_password
+    admin_id, admin_uname, admin_pass_word
   </sql>
   <select id="selectByExample" parameterType="com.xyy.po.AdminExample" resultMap="BaseResultMap">
     select
@@ -85,11 +85,11 @@
     select 
     <include refid="Base_Column_List" />
     from admin
-    where a_id = #{a_id,jdbcType=INTEGER}
+    where admin_id = #{admin_id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from admin
-    where a_id = #{a_id,jdbcType=INTEGER}
+    where admin_id = #{admin_id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.xyy.po.AdminExample">
     delete from admin
@@ -98,33 +98,31 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.xyy.po.Admin">
-    insert into admin (a_id, a_name, a_password
-      )
-    values (#{a_id,jdbcType=INTEGER}, #{a_name,jdbcType=VARCHAR}, #{a_password,jdbcType=VARCHAR}
-      )
+    <selectKey keyProperty="admin_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into admin (admin_uname, admin_pass_word)
+    values (#{admin_uname,jdbcType=VARCHAR}, #{admin_pass_word,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.xyy.po.Admin">
+    <selectKey keyProperty="admin_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into admin
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="a_id != null">
-        a_id,
+      <if test="admin_uname != null">
+        admin_uname,
       </if>
-      <if test="a_name != null">
-        a_name,
-      </if>
-      <if test="a_password != null">
-        a_password,
+      <if test="admin_pass_word != null">
+        admin_pass_word,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="a_id != null">
-        #{a_id,jdbcType=INTEGER},
+      <if test="admin_uname != null">
+        #{admin_uname,jdbcType=VARCHAR},
       </if>
-      <if test="a_name != null">
-        #{a_name,jdbcType=VARCHAR},
-      </if>
-      <if test="a_password != null">
-        #{a_password,jdbcType=VARCHAR},
+      <if test="admin_pass_word != null">
+        #{admin_pass_word,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -137,14 +135,14 @@
   <update id="updateByExampleSelective" parameterType="map">
     update admin
     <set>
-      <if test="record.a_id != null">
-        a_id = #{record.a_id,jdbcType=INTEGER},
+      <if test="record.admin_id != null">
+        admin_id = #{record.admin_id,jdbcType=INTEGER},
       </if>
-      <if test="record.a_name != null">
-        a_name = #{record.a_name,jdbcType=VARCHAR},
+      <if test="record.admin_uname != null">
+        admin_uname = #{record.admin_uname,jdbcType=VARCHAR},
       </if>
-      <if test="record.a_password != null">
-        a_password = #{record.a_password,jdbcType=VARCHAR},
+      <if test="record.admin_pass_word != null">
+        admin_pass_word = #{record.admin_pass_word,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -153,9 +151,9 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update admin
-    set a_id = #{record.a_id,jdbcType=INTEGER},
-      a_name = #{record.a_name,jdbcType=VARCHAR},
-      a_password = #{record.a_password,jdbcType=VARCHAR}
+    set admin_id = #{record.admin_id,jdbcType=INTEGER},
+      admin_uname = #{record.admin_uname,jdbcType=VARCHAR},
+      admin_pass_word = #{record.admin_pass_word,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -163,19 +161,19 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.xyy.po.Admin">
     update admin
     <set>
-      <if test="a_name != null">
-        a_name = #{a_name,jdbcType=VARCHAR},
+      <if test="admin_uname != null">
+        admin_uname = #{admin_uname,jdbcType=VARCHAR},
       </if>
-      <if test="a_password != null">
-        a_password = #{a_password,jdbcType=VARCHAR},
+      <if test="admin_pass_word != null">
+        admin_pass_word = #{admin_pass_word,jdbcType=VARCHAR},
       </if>
     </set>
-    where a_id = #{a_id,jdbcType=INTEGER}
+    where admin_id = #{admin_id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xyy.po.Admin">
     update admin
-    set a_name = #{a_name,jdbcType=VARCHAR},
-      a_password = #{a_password,jdbcType=VARCHAR}
-    where a_id = #{a_id,jdbcType=INTEGER}
+    set admin_uname = #{admin_uname,jdbcType=VARCHAR},
+      admin_pass_word = #{admin_pass_word,jdbcType=VARCHAR}
+    where admin_id = #{admin_id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -7,10 +7,6 @@ public class Singer {
 
     private String s_info;
 
-    private String image_name;
-
-    private Integer l_id;
-
     public Integer getS_id() {
         return s_id;
     }
@@ -33,21 +29,5 @@ public class Singer {
 
     public void setS_info(String s_info) {
         this.s_info = s_info == null ? null : s_info.trim();
-    }
-
-    public String getImage_name() {
-        return image_name;
-    }
-
-    public void setImage_name(String image_name) {
-        this.image_name = image_name == null ? null : image_name.trim();
-    }
-
-    public Integer getL_id() {
-        return l_id;
-    }
-
-    public void setL_id(Integer l_id) {
-        this.l_id = l_id;
     }
 }

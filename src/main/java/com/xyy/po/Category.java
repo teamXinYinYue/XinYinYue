@@ -7,8 +7,6 @@ public class Category {
 
     private String ca_info;
 
-    private Integer l_id;
-
     public Integer getCa_id() {
         return ca_id;
     }
@@ -31,13 +29,5 @@ public class Category {
 
     public void setCa_info(String ca_info) {
         this.ca_info = ca_info == null ? null : ca_info.trim();
-    }
-
-    public Integer getL_id() {
-        return l_id;
-    }
-
-    public void setL_id(Integer l_id) {
-        this.l_id = l_id;
     }
 }

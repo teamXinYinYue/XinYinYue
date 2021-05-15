@@ -1,16 +1,14 @@
 package com.xyy.service;
 
-import java.util.List;
-
-import com.xyy.po.UserExample;
+import com.xyy.po.User;
 import org.apache.ibatis.annotations.Param;
 
-import com.xyy.po.User;
+import java.util.List;
 
 public interface UserService {
 
 
-	int addUser(User user);
+	Integer insertUser(User user);
 
 	int deleteUser(@Param("id") Integer id);
 

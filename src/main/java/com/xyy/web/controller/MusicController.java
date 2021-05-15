@@ -3,22 +3,15 @@ package com.xyy.web.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xyy.po.Music;
-import com.xyy.po.Singer;
-import com.xyy.po.User;
 import com.xyy.service.MusicCategoryService;
 import com.xyy.service.MusicService;
 import com.xyy.service.SingerService;
-import com.xyy.utils.JsonInfo;
-import com.xyy.utils.MyPageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Controller
@@ -33,96 +26,75 @@ public class MusicController {
     private MusicCategoryService musicCategoryService;
 
     @ResponseBody
-    @RequestMapping(value = "/findMusicBySid",method = RequestMethod.POST)
-    public JsonInfo findMusicPaiHang(Integer size) {
+    @RequestMapping(value = "/OrderManyMusicBysize" )
+    public HashMap OrderManyMusicBysize(Integer size) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
+        if(size==null){
+            size=10;
+        }
         List<Music> list=musicService.findMusicPaiHang(size);
 
         if( list.size()!=0) {
 
-            jsonInfo.setObj(list);
-
-            return jsonInfo;
+            hashMap.put("musiclist",list);
+            return hashMap;
         }
-        jsonInfo.setMsg("查找失败");
-
-        return jsonInfo;
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/addMusic",method = RequestMethod.GET)
-    public JsonInfo addMusic(Music music,  JsonInfo jsonInfo) {
+        hashMap.put("msg","查找失败");
 
 
-        int rows=musicService.insertMusic(music);
-
-
-//        Map<String, Music> flashAttributes = (Map<String, Music>) redirectAttrs.getFlashAttributes();
-//        int rows=musicService.insertMusic(flashAttributes.get("music"));
-
-
-        if(rows<=0) {
-
-            jsonInfo.setMsg("添加失败，请重试！");
-
-        }else{
-
-            jsonInfo.setMsg("添加成功");
-        }
-
-
-        return jsonInfo;
+        return hashMap;
     }
 
 
-    @ResponseBody
-    @RequestMapping(value = "/deleteMusic",method = RequestMethod.POST)
-    public JsonInfo deleteMusic(Integer[] mids) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+
+    @ResponseBody
+    @RequestMapping(value = "/deleteManyMusicBymids",method = RequestMethod.POST)
+    public HashMap deleteManyMusicBymids(Integer[] mids) {
+
+        HashMap hashMap=new HashMap();
 
         int rows=musicService.deleteMusics(mids);
 
         if(rows>0) {
 
-            jsonInfo.setMsg("删除成功");
+            hashMap.put("msg","删除成功");
 
         } else {
-
-            jsonInfo.setMsg("删除失败，请重试！");
+            hashMap.put("msg","删除失败，请重试！");
 
         }
 
-        return jsonInfo;
+        return hashMap;
     }
 
 
     @ResponseBody
-    @RequestMapping(value = "/updateMusic",method = RequestMethod.POST)
-    public JsonInfo updateMusic(@RequestBody Music music) {
+    @RequestMapping(value = "/updateOneMusicBymusic" ,method = RequestMethod.POST)
+    public HashMap updateOneMusicBymusic(@RequestBody Music music) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
         int rows=musicService.updateMusic(music);
 
         if(rows>0) {
+            hashMap.put("msg","更新成功");
 
-            jsonInfo.setMsg("更新成功");
 
         } else {
+            hashMap.put("msg","更新失败，请重试！");
 
-            jsonInfo.setMsg("更新失败，请重试！");
 
         }
 
-        return jsonInfo;
+        return hashMap;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/musicPage")
-    public MyPageInfo<Music> musicPage(Integer pageNum,Integer pageSize) {
+    @RequestMapping(value = "/pageManyMusic")
+    public HashMap pageManyMusic(Integer pageNum,Integer pageSize) {
         if(pageNum==null){
             pageNum=1;
         }else if(pageNum<1){
@@ -138,21 +110,24 @@ public class MusicController {
         PageInfo<Music> info = new PageInfo(list);
         int totalPage=info.getPages();
 
-
-        MyPageInfo<Music> mypage=new MyPageInfo<>(list,pageNum,pageSize,totalPage);
-        return mypage;
+        HashMap hashMap=new HashMap();
+        hashMap.put("pagemusiclist",list);
+        hashMap.put("pageNum",pageNum);
+        hashMap.put("pageSize",pageSize);
+        hashMap.put("totalPage",totalPage);
+        return hashMap;
 
     }
 
 
     @ResponseBody
-    @RequestMapping(value = "/findMusicByMC",method = RequestMethod.POST)
-    public MyPageInfo<Music> musicPageByMC(String cname,String sname,String mname,Integer pageNum,Integer pageSize) {
+    @RequestMapping(value = "/pageManyMusicByMC" )
+    public HashMap pageManyMusicByMC(String cname,String sname,String mname,Integer pageNum,Integer pageSize) {
         Integer cid=null;
         Integer sid=null;
 
         if(cname!=null){
-            cid=musicCategoryService.findMusicCategoryIDbyname(cname);
+            cid=musicCategoryService.findMusicCategoryIDbyName(cname);
         }
         if(sname!=null){
             sid=singerService.findSingerIDByName(sname);
@@ -174,8 +149,12 @@ public class MusicController {
         int totalPage=info.getPages();
 
 
-        MyPageInfo<Music> mypage=new MyPageInfo<>(list,pageNum,pageSize,totalPage);
-        return mypage;
+        HashMap hashMap=new HashMap();
+        hashMap.put("pagemusiclist",list);
+        hashMap.put("pageNum",pageNum);
+        hashMap.put("pageSize",pageSize);
+        hashMap.put("totalPage",totalPage);
+        return hashMap;
 
     }
 

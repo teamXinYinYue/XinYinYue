@@ -1,20 +1,14 @@
 package com.xyy.web.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.xyy.po.Playlist;
-import com.xyy.po.Singer;
-import com.xyy.utils.JsonInfo;
 import com.xyy.po.Plmusic;
 import com.xyy.service.PlmusicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -25,64 +19,64 @@ public class PlmusicController {
     private PlmusicService plmusicService;
 
     @ResponseBody
-    @RequestMapping(value = "/findPlmusic",method = RequestMethod.POST)
-    public JsonInfo findPlmusic(Integer uid,String pname) {
+    @RequestMapping(value = "/findManyPlmusicByuidpname" )
+    public HashMap findManyPlmusicByuidpname(Integer uid, String pname) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
         List<Plmusic> list=plmusicService.findPlmusic(uid,pname);
 
         if( list.size()!=0) {
 
-            jsonInfo.setObj(list);
+            hashMap.put("plmusiclist",list);
 
-            return jsonInfo;
+            return hashMap;
         }
-        jsonInfo.setMsg("查找失败");
+        hashMap.put("msg","查找失败");
 
-        return jsonInfo;
+        return hashMap;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/addPlmusic",method = RequestMethod.POST)
-    public JsonInfo addPlmusic(Integer[] plmids,String pname,Integer uid) {
+    @RequestMapping(value = "/addManyPlmusicByplmidspnameuid",method = RequestMethod.POST)
+    public HashMap addManyPlmusicByplmidspnameuid(Integer[] plmids,String pname,Integer uid) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
         int rows=plmusicService.insertPlmusic(plmids,pname,uid);
 
         if(rows<=0) {
 
-            jsonInfo.setMsg("歌单歌曲添加失败，请重试！");
+            hashMap.put("msg","歌单歌曲添加失败，请重试！");
+
 
         }else{
-
-            jsonInfo.setMsg("歌单歌曲添加成功");
+            hashMap.put("msg","歌单歌曲添加成功");
         }
 
-        return jsonInfo;
+        return hashMap;
     }
 
 
     @ResponseBody
-    @RequestMapping(value = "/deletePlmusic",method = RequestMethod.POST)
-    public JsonInfo deletePlmusic(Integer[] plmids,String pname,Integer uid) {
+    @RequestMapping(value = "/deleteManyPlmusicByplmidpnameuid",method = RequestMethod.POST)
+    public HashMap deleteManyPlmusicByplmidpnameuid(Integer[] plmids,String pname,Integer uid) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
         int rows=plmusicService.deletePlmusic(plmids,pname,uid);
 
         if(rows>0) {
 
-            jsonInfo.setMsg("歌单歌曲删除成功");
+            hashMap.put("msg","歌单歌曲删除成功");
 
         } else {
 
-            jsonInfo.setMsg("歌单歌曲删除失败，请重试！");
+            hashMap.put("msg","歌单歌曲删除失败，请重试！");
 
         }
 
-        return jsonInfo;
+        return hashMap;
     }
 
 

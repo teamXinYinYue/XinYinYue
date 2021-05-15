@@ -5,7 +5,6 @@
     <id column="ca_id" jdbcType="INTEGER" property="ca_id" />
     <result column="ca_name" jdbcType="VARCHAR" property="ca_name" />
     <result column="ca_info" jdbcType="VARCHAR" property="ca_info" />
-    <result column="l_id" jdbcType="INTEGER" property="l_id" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ca_id, ca_name, ca_info, l_id
+    ca_id, ca_name, ca_info
   </sql>
   <select id="selectByExample" parameterType="com.xyy.po.CategoryExample" resultMap="BaseResultMap">
     select
@@ -99,39 +98,31 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.xyy.po.Category">
-    insert into category (ca_id, ca_name, ca_info, 
-      l_id)
-    values (#{ca_id,jdbcType=INTEGER}, #{ca_name,jdbcType=VARCHAR}, #{ca_info,jdbcType=VARCHAR}, 
-      #{l_id,jdbcType=INTEGER})
+    <selectKey keyProperty="ca_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into category (ca_name, ca_info)
+    values (#{ca_name,jdbcType=VARCHAR}, #{ca_info,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.xyy.po.Category">
+    <selectKey keyProperty="ca_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into category
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="ca_id != null">
-        ca_id,
-      </if>
       <if test="ca_name != null">
         ca_name,
       </if>
       <if test="ca_info != null">
         ca_info,
       </if>
-      <if test="l_id != null">
-        l_id,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="ca_id != null">
-        #{ca_id,jdbcType=INTEGER},
-      </if>
       <if test="ca_name != null">
         #{ca_name,jdbcType=VARCHAR},
       </if>
       <if test="ca_info != null">
         #{ca_info,jdbcType=VARCHAR},
-      </if>
-      <if test="l_id != null">
-        #{l_id,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -153,9 +144,6 @@
       <if test="record.ca_info != null">
         ca_info = #{record.ca_info,jdbcType=VARCHAR},
       </if>
-      <if test="record.l_id != null">
-        l_id = #{record.l_id,jdbcType=INTEGER},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -165,8 +153,7 @@
     update category
     set ca_id = #{record.ca_id,jdbcType=INTEGER},
       ca_name = #{record.ca_name,jdbcType=VARCHAR},
-      ca_info = #{record.ca_info,jdbcType=VARCHAR},
-      l_id = #{record.l_id,jdbcType=INTEGER}
+      ca_info = #{record.ca_info,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -180,17 +167,13 @@
       <if test="ca_info != null">
         ca_info = #{ca_info,jdbcType=VARCHAR},
       </if>
-      <if test="l_id != null">
-        l_id = #{l_id,jdbcType=INTEGER},
-      </if>
     </set>
     where ca_id = #{ca_id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xyy.po.Category">
     update category
     set ca_name = #{ca_name,jdbcType=VARCHAR},
-      ca_info = #{ca_info,jdbcType=VARCHAR},
-      l_id = #{l_id,jdbcType=INTEGER}
+      ca_info = #{ca_info,jdbcType=VARCHAR}
     where ca_id = #{ca_id,jdbcType=INTEGER}
   </update>
 </mapper>

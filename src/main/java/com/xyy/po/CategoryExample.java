@@ -303,66 +303,6 @@ public class CategoryExample {
             addCriterion("ca_info not between", value1, value2, "ca_info");
             return (Criteria) this;
         }
-
-        public Criteria andL_idIsNull() {
-            addCriterion("l_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andL_idIsNotNull() {
-            addCriterion("l_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andL_idEqualTo(Integer value) {
-            addCriterion("l_id =", value, "l_id");
-            return (Criteria) this;
-        }
-
-        public Criteria andL_idNotEqualTo(Integer value) {
-            addCriterion("l_id <>", value, "l_id");
-            return (Criteria) this;
-        }
-
-        public Criteria andL_idGreaterThan(Integer value) {
-            addCriterion("l_id >", value, "l_id");
-            return (Criteria) this;
-        }
-
-        public Criteria andL_idGreaterThanOrEqualTo(Integer value) {
-            addCriterion("l_id >=", value, "l_id");
-            return (Criteria) this;
-        }
-
-        public Criteria andL_idLessThan(Integer value) {
-            addCriterion("l_id <", value, "l_id");
-            return (Criteria) this;
-        }
-
-        public Criteria andL_idLessThanOrEqualTo(Integer value) {
-            addCriterion("l_id <=", value, "l_id");
-            return (Criteria) this;
-        }
-
-        public Criteria andL_idIn(List<Integer> values) {
-            addCriterion("l_id in", values, "l_id");
-            return (Criteria) this;
-        }
-
-        public Criteria andL_idNotIn(List<Integer> values) {
-            addCriterion("l_id not in", values, "l_id");
-            return (Criteria) this;
-        }
-
-        public Criteria andL_idBetween(Integer value1, Integer value2) {
-            addCriterion("l_id between", value1, value2, "l_id");
-            return (Criteria) this;
-        }
-
-        public Criteria andL_idNotBetween(Integer value1, Integer value2) {
-            addCriterion("l_id not between", value1, value2, "l_id");
-            return (Criteria) this;
-        }
     }
 
     public static class Criteria extends GeneratedCriteria {

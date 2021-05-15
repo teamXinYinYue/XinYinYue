@@ -28,8 +28,9 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public int insertComment(Comment comment) {
-        return this.commentMapper.insert(comment);
+    public Integer insertComment(Comment comment) {
+        this.commentMapper.insertSelective(comment);
+        return comment.getId();
     }
 
     @Override

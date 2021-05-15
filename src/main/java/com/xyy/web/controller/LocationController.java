@@ -4,8 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xyy.po.*;
 import com.xyy.service.LocationService;
-import com.xyy.utils.JsonInfo;
-import com.xyy.utils.MyPageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -22,129 +21,125 @@ public class LocationController {
     private LocationService locationService;
 
     @ResponseBody
-    @RequestMapping(value = "/findLocation",method = RequestMethod.POST)
-    public JsonInfo findLocation() {
+    @RequestMapping(value = "/findManyLocationByNone" )
+    public HashMap findManyLocationByNone() {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
         List<Location> list=locationService.findLocation();
 
         if( list.size()!=0) {
+            hashMap.put("locationlist",list);
 
-            jsonInfo.setObj(list);
-
-            return jsonInfo;
+            return hashMap;
         }
-        jsonInfo.setMsg("查找失败");
+        hashMap.put("msg","查找失败");
 
-        return jsonInfo;
+        return hashMap;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/findLocationByCategory",method = RequestMethod.POST)
-    public JsonInfo findLocationByCategory(Integer lid) {
+    @RequestMapping(value = "/findManyLocationBycalid" )
+    public HashMap findManyLocationBycalid(Integer calid) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
-        List<Location> list=locationService.findLocationByLid(lid);
+        List<Location> list=locationService.findLocationByLid(calid);
 
         if( list.size()!=0) {
+            hashMap.put("locationlist",list);
 
-            jsonInfo.setObj(list);
-
-            return jsonInfo;
+            return hashMap;
         }
-        jsonInfo.setMsg("查找失败");
-
-        return jsonInfo;
+        hashMap.put("msg","查找失败");
+        return hashMap;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/findLocationBySinger",method = RequestMethod.POST)
-    public JsonInfo findLocationBySinger(Integer sid) {
+    @RequestMapping(value = "/findManyLoactionByslid" )
+    public HashMap findManyLoactionByslid(Integer slid) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
-        List<Location> list=locationService.findLocationByLid(sid);
+        List<Location> list=locationService.findLocationByLid(slid);
 
         if( list.size()!=0) {
+            hashMap.put("locationlist",list);
 
-            jsonInfo.setObj(list);
-
-            return jsonInfo;
+            return hashMap;
         }
-        jsonInfo.setMsg("查找失败");
+        hashMap.put("msg","查找失败");
 
-        return jsonInfo;
+        return hashMap;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/addLocation",method = RequestMethod.POST)
-    public JsonInfo addLocation(@RequestBody Location location) {
+    @RequestMapping(value = "/addOneLocationBylocation",method = RequestMethod.POST)
+    public HashMap addOneLocationBylocation(@RequestBody Location location) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
         int rows=locationService.insertLocation(location);
 
         if(rows<=0) {
+            hashMap.put("msg","添加失败，请重试！");
 
-            jsonInfo.setMsg("添加失败，请重试！");
 
         }else{
+            hashMap.put("msg","添加成功");
 
-            jsonInfo.setMsg("添加成功");
         }
 
-        return jsonInfo;
+        return hashMap;
     }
 
 
     @ResponseBody
-    @RequestMapping(value = "/deleteLocation",method = RequestMethod.POST)
-    public JsonInfo deleteLocation(Integer[] lids) {
+    @RequestMapping(value = "/deleteManyLocationBylids",method = RequestMethod.POST)
+    public HashMap deleteManyLocationBylids(Integer[] lids) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
         int rows=locationService.deleteLocations(lids);
 
         if(rows>0) {
+            hashMap.put("msg","删除成功");
 
-            jsonInfo.setMsg("删除成功");
 
         } else {
+            hashMap.put("msg","删除失败，请重试！");
 
-            jsonInfo.setMsg("删除失败，请重试！");
 
         }
 
-        return jsonInfo;
+        return hashMap;
     }
 
 
     @ResponseBody
-    @RequestMapping(value = "/updateLocation",method = RequestMethod.POST)
-    public JsonInfo updateLocation(@RequestBody Location location) {
+    @RequestMapping(value = "/updateOneLocationBylocation",method = RequestMethod.POST)
+    public HashMap updateOneLocationBylocation(@RequestBody Location location) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
         int rows=locationService.updateLocation(location);
 
         if(rows>0) {
+            hashMap.put("msg","更新成功");
 
-            jsonInfo.setMsg("更新成功");
 
         } else {
+            hashMap.put("msg","更新失败，请重试！");
 
-            jsonInfo.setMsg("更新失败，请重试！");
 
         }
 
-        return jsonInfo;
+        return hashMap;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/LocationPage")
-    public  MyPageInfo<Location> LocationPage(Integer pageNum,Integer pageSize) {
+    @RequestMapping(value = "/pageManyLocation")
+    public  HashMap pageManyLocation(Integer pageNum,Integer pageSize) {
         if(pageNum==null){
             pageNum=1;
         }else if(pageNum<1){
@@ -160,15 +155,18 @@ public class LocationController {
         PageInfo<Location> info = new PageInfo(list);
         int totalPage=info.getPages();
 
-
-        MyPageInfo<Location> mypage=new MyPageInfo<>(list,pageNum,pageSize,totalPage);
-        return mypage;
+        HashMap hashMap=new HashMap();
+        hashMap.put("pagelocationlist",list);
+        hashMap.put("pageNum",pageNum);
+        hashMap.put("pageSize",pageSize);
+        hashMap.put("totalPage",totalPage);
+        return hashMap;
 
     }
 
     @ResponseBody
-    @RequestMapping(value = "/LocationPageByCategory")
-    public  MyPageInfo<Location> LocationPageByCategory(Integer clid,Integer pageNum,Integer pageSize) {
+    @RequestMapping(value = "/pageManyLocationBycalid")
+    public  HashMap pageManyLocationBycalid(Integer clid,Integer pageNum,Integer pageSize) {
         if(pageNum==null){
             pageNum=1;
         }else if(pageNum<1){
@@ -185,14 +183,18 @@ public class LocationController {
         int totalPage=info.getPages();
 
 
-        MyPageInfo<Location> mypage=new MyPageInfo<>(list,pageNum,pageSize,totalPage);
-        return mypage;
+        HashMap hashMap=new HashMap();
+        hashMap.put("pagelocationlist",list);
+        hashMap.put("pageNum",pageNum);
+        hashMap.put("pageSize",pageSize);
+        hashMap.put("totalPage",totalPage);
+        return hashMap;
 
     }
 
     @ResponseBody
-    @RequestMapping(value = "/musicPageBySinger")
-    public MyPageInfo<Location> musicPageBySinger(Integer slid,Integer pageNum,Integer pageSize) {
+    @RequestMapping(value = "/pageManyLocationByslid")
+    public HashMap pageManyLocationByslid(Integer slid,Integer pageNum,Integer pageSize) {
         if(pageNum==null){
             pageNum=1;
         }else if(pageNum<1){
@@ -210,8 +212,12 @@ public class LocationController {
 
 
 
-        MyPageInfo<Location> mypage=new MyPageInfo<>(list,pageNum,pageSize,totalPage);
-        return mypage;
+        HashMap hashMap=new HashMap();
+        hashMap.put("pagelocationlist",list);
+        hashMap.put("pageNum",pageNum);
+        hashMap.put("pageSize",pageSize);
+        hashMap.put("totalPage",totalPage);
+        return hashMap;
 
     }
 }

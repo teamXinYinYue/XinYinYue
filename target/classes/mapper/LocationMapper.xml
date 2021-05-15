@@ -3,7 +3,9 @@
 <mapper namespace="com.xyy.dao.LocationMapper">
   <resultMap id="BaseResultMap" type="com.xyy.po.Location">
     <id column="l_id" jdbcType="INTEGER" property="l_id" />
-    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="s_id" jdbcType="INTEGER" property="s_id" />
+    <result column="i_info" jdbcType="VARCHAR" property="i_info" />
+    <result column="i_path" jdbcType="VARCHAR" property="i_path" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -64,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    l_id, location
+    l_id, s_id, i_info, i_path
   </sql>
   <select id="selectByExample" parameterType="com.xyy.po.LocationExample" resultMap="BaseResultMap">
     select
@@ -97,25 +99,39 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.xyy.po.Location">
-    insert into location (l_id, location)
-    values (#{l_id,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR})
+    <selectKey keyProperty="l_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into location (s_id, i_info, i_path
+      )
+    values (#{s_id,jdbcType=INTEGER}, #{i_info,jdbcType=VARCHAR}, #{i_path,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.xyy.po.Location">
+    <selectKey keyProperty="l_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into location
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="l_id != null">
-        l_id,
+      <if test="s_id != null">
+        s_id,
       </if>
-      <if test="location != null">
-        location,
+      <if test="i_info != null">
+        i_info,
+      </if>
+      <if test="i_path != null">
+        i_path,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="l_id != null">
-        #{l_id,jdbcType=INTEGER},
+      <if test="s_id != null">
+        #{s_id,jdbcType=INTEGER},
       </if>
-      <if test="location != null">
-        #{location,jdbcType=VARCHAR},
+      <if test="i_info != null">
+        #{i_info,jdbcType=VARCHAR},
+      </if>
+      <if test="i_path != null">
+        #{i_path,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -131,8 +147,14 @@
       <if test="record.l_id != null">
         l_id = #{record.l_id,jdbcType=INTEGER},
       </if>
-      <if test="record.location != null">
-        location = #{record.location,jdbcType=VARCHAR},
+      <if test="record.s_id != null">
+        s_id = #{record.s_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.i_info != null">
+        i_info = #{record.i_info,jdbcType=VARCHAR},
+      </if>
+      <if test="record.i_path != null">
+        i_path = #{record.i_path,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -142,7 +164,9 @@
   <update id="updateByExample" parameterType="map">
     update location
     set l_id = #{record.l_id,jdbcType=INTEGER},
-      location = #{record.location,jdbcType=VARCHAR}
+      s_id = #{record.s_id,jdbcType=INTEGER},
+      i_info = #{record.i_info,jdbcType=VARCHAR},
+      i_path = #{record.i_path,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -150,15 +174,23 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.xyy.po.Location">
     update location
     <set>
-      <if test="location != null">
-        location = #{location,jdbcType=VARCHAR},
+      <if test="s_id != null">
+        s_id = #{s_id,jdbcType=INTEGER},
+      </if>
+      <if test="i_info != null">
+        i_info = #{i_info,jdbcType=VARCHAR},
+      </if>
+      <if test="i_path != null">
+        i_path = #{i_path,jdbcType=VARCHAR},
       </if>
     </set>
     where l_id = #{l_id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xyy.po.Location">
     update location
-    set location = #{location,jdbcType=VARCHAR}
+    set s_id = #{s_id,jdbcType=INTEGER},
+      i_info = #{i_info,jdbcType=VARCHAR},
+      i_path = #{i_path,jdbcType=VARCHAR}
     where l_id = #{l_id,jdbcType=INTEGER}
   </update>
 </mapper>

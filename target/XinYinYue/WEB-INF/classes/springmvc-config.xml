@@ -19,8 +19,12 @@
 	<mvc:annotation-driven/>
 
 	<mvc:resources location="/js/" mapping="/js/**"/>
-	<mvc:resources location="/foundation-sites-templates/" mapping="/foundation-sites-templates/**"/>
-	<mvc:resources location="/frontwebapp/" mapping="/frontwebapp/**"/>
+	<mvc:resources location="/test-html/" mapping="/test-html/**"/>
+	<mvc:resources location="/picture/" mapping="/picture/**"/>
+	<mvc:resources location="/music/" mapping="/music/**"/>
+
+
+
 
 <!--	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
 <!--		<property name="prefix" value="/WEB-INF/jsps/"></property>-->
@@ -44,7 +48,7 @@
 
 	<!-- 文件上传解析器 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="10240000"></property>
+		<property name="maxUploadSize" value="200240000"></property>
 	</bean>
 
 <!--		<mvc:interceptors>-->

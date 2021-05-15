@@ -28,14 +28,17 @@
       <param-value>UTF-8</param-value>
 
     </init-param>
-
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
   </filter>
 
   <filter-mapping>
 
     <filter-name>encoding</filter-name>
 
-    <url-pattern>/</url-pattern>
+    <url-pattern>/*</url-pattern>
     <!-- <url-pattern>*.action</url-pattern> -->
 
   </filter-mapping>
@@ -79,7 +82,7 @@
   <welcome-file-list>
 
 <!--    <welcome-file>index.jsp</welcome-file>-->
-    <welcome-file>/test-html/index.html</welcome-file>
+    <welcome-file>/test-html/home.html</welcome-file>
 
   </welcome-file-list>
 

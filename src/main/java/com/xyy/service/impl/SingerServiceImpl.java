@@ -1,8 +1,6 @@
 package com.xyy.service.impl;
 
 import com.xyy.dao.SingerMapper;
-import com.xyy.po.Category;
-import com.xyy.po.CategoryExample;
 import com.xyy.po.Singer;
 import com.xyy.po.SingerExample;
 import com.xyy.service.SingerService;
@@ -50,8 +48,9 @@ public class SingerServiceImpl implements SingerService {
     }
 
     @Override
-    public int insertSinger(Singer singer) {
-        return this.singerMapper.insert(singer);
+    public Integer insertSinger(Singer singer) {
+        this.singerMapper.insertSelective(singer);
+        return singer.getS_id();
     }
 
     @Override

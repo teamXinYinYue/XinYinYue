@@ -7,31 +7,42 @@
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
             crossorigin="anonymous"></script>
     <script type="text/javascript">
-
         $(function () {
             $('#button').click(function (){
+
                 var u_name=$("#u_name").val();
                 var pass_word=$("#pass_word").val();
                 $.ajax({
                     url:"testJson",
-                    type:"post",
-                    data:JSON.stringify({u_name:u_name,pass_word:pass_word}),//发送到服务器的数据
-                    contentType:"application/json;charset=UTF-8",
+                    // type:"post",
+                    // data:JSON.stringify({u_name:u_name,pass_word:pass_word}),//发送到服务器的数据
+                    // contentType:"application/json;charset=UTF-8",
+                    type:"get",//不封装，url传参
+                    data: "u_name="+u_name+"&pass_word="+pass_word,
+                    contentType: "html/text;charset=UTF-8",
+
                     dataType:"text", // 预期服务器返回的数据类型
                     success:function(backdata){
+                        var data = jQuery.parseJSON(backdata);
                         if(backdata!=null){
-                            alert(backdata)
+                            alert(data.u_name+","+data.pass_word);
+                            console.log(backdata);
                         }
                     }
                 });
+
             })
 
             $("#buttonUpload").click(function () {
                 var file = $('#fileUpload').get(0).files[0];
+                var sid = $('#sid').val();
+                var iinfo = $('#iinfo').val();
                 var fd = new FormData();
                 fd.append("file", file);
+                fd.append("sid", sid);
+                fd.append("iinfo", iinfo);
                 $.ajax({
-                    url: "uploadPic",
+                    url: "uploadOnePictureFileByformdata",
                     type: "post",
                     data: fd,
 
@@ -43,13 +54,14 @@
                     processData: false,
 
                     success:function(backdata){
-                        var data = jQuery.parseJSON(backdata).obj;
-                        $("#imgshow").attr("src", data);
-                        $("#save").val(data);
+                        var path = jQuery.parseJSON(backdata).path;
+                        $("#imgshow").attr("src", path);
+
                     },
                     error: function (backdata) {
                         if(backdata!=null){
-                            alert(backdata)
+                            alert("失败信息："+backdata)
+                            console.log(backdata);
                         }
                     }
                 });
@@ -57,12 +69,18 @@
 
             $("#musicButtonUpload").click(function () {
                 var file = $('#fileName').get(0).files[0];
+
+                var mname = $('#mname').val();
                 var cname = $('#cname').val();
+                var sid2 = $('#sid2').val();
+
                 var fd = new FormData();
                 fd.append("file", file);
+                fd.append("mname", mname);
                 fd.append("cname", cname);
+                fd.append("sid2", sid2);
                 $.ajax({
-                    url: "uploadMus",
+                    url: "uploadOneMusicByFormData",
                     type: "post",
                     data: fd,
 
@@ -74,40 +92,81 @@
                     processData: false,
 
                     success:function(backdata){
-                        var data = jQuery.parseJSON(backdata).obj;
+                        var data = jQuery.parseJSON(backdata);
                         alert(data);
-                        $("#showmusic").attr("src", data);
-
+                        console.log(data);
+                        var src=data.path;
+                        var mid=data.mid;
+                        $("#showmusic").attr("src", src);
+                        $("#playmusicid").attr("value", mid);
                     },
                     error: function (backdata) {
                         if(backdata!=null){
-                            alert(backdata)
+                            alert("失败信息："+backdata)
+                            console.log(backdata);
                         }
                     }
                 });
             });
 
+            var times=0
+            $("audio").bind("play", function(){
+                times++;
+                document.cookie="times."+$("#playmusicid").val()+"="+times
+                alert(document.cookie);
+            });
+
+            $(window).on('unload', function() {
+                var fd = new FormData();
+                fd.append('cookie', document.cookie);
+                navigator.sendBeacon('saveOneCookie', fd);
+            });
+
+            document.addEventListener("visibilitychange", function() {
+                console.log( document.visibilityState );
+                // if (document.visibilityState == 'hidden') {
+                //     var fd = new FormData();
+                //     fd.append('cookie', document.cookie);
+                //     navigator.sendBeacon('cookie', fd);
+                // }
+            });
         })
     </script>
 </head>
 <body>
 <form>
-    u_name:<input type="text" name="u_name" id="u_name"/><br/>
-    pass_word:<input type="password" name="pass_word" id="pass_word"/><br/>
-    <input type="button"  id="button"   value="commit"/>
+    账号：<input type="text" name="u_name" id="u_name"/><br/>
+    密码：<input type="password" name="pass_word" id="pass_word"/><br/>
+    <input type="button"  id="button"   value="注册"/>
 </form>
+<hr>
 <div class="img"><img id="imgshow" src="" width="100" height="100" /></div>
 <form>
-    chose picture <input type="file" id="fileUpload" name="file" />
-    <input type="button" id="buttonUpload" value="upload">
-    <input id="save" type="hidden" name="save" value="">
+    当前歌手id为1<br>
+    选择本地图片：<input type="file" id="fileUpload" name="file" />
+    <input id="sid" type="hidden" name="sid" value="1">
+    图片信息：<input id="iinfo" type="text" name="iinfo" value="春光下的xxx">
+    <input type="button" id="buttonUpload" value="上传">
 </form>
-<div class="music"><audio id="showmusic" src="../music/1/2.mp3" controls="controls"></audio></div>
+<hr>
+<div class="music">
+    <audio id="showmusic"  src="" controls="controls"></audio>
+    <input id="playmusicid" type="hidden" name="playmusicid" value="">
+</div>
 <form>
-    歌曲类型：<input type="text"  name="cname" value="relax"/>
+    歌曲类型：
+    <select id="cname">
+        <option value="rock">rock</option>
+        <option value="pop">pop</option>
+        <option value="electronic">electronic</option>
+        <option value="classical">classical</option>
+    </select>
+    歌曲名：<input type="text" id="mname" name="mname" value="1">
+    <input id="sid2" type="hidden" name="sid2" value="1">
     文件：<input type="file" id="fileName" name="fileName" value="点击上传" />
-    <input type="button" id="musicButtonUpload" value="upload" />
+    <input type="button" id="musicButtonUpload" value="上传" />
 </form>
+
 
 
 </body>

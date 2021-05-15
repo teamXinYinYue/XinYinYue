@@ -18,7 +18,7 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     @Override
     public int insertPlaylist(Playlist playlist) {
-        return this.playlistMapper.insert(playlist);
+        return this.playlistMapper.insertSelective(playlist);
     }
 
     @Override

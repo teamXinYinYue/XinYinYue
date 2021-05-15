@@ -1,11 +1,10 @@
 package com.xyy.service.impl;
 
 import com.xyy.dao.LocationMapper;
-import com.xyy.po.Comment;
-import com.xyy.po.CommentExample;
 import com.xyy.po.Location;
 import com.xyy.po.LocationExample;
 import com.xyy.service.LocationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +12,7 @@ import java.util.List;
 @Service("locationService")
 public class LocationServiceImpl implements LocationService {
 
+    @Autowired
     private LocationMapper locationMapper;
     @Override
     public List<Location> findLocation() {
@@ -29,8 +29,9 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public int insertLocation(Location location) {
-        return this.locationMapper.insert(location);
+    public Integer insertLocation(Location location) {
+        this.locationMapper.insertSelective(location);
+        return location.getL_id();
     }
 
     @Override

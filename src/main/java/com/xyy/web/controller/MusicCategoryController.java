@@ -5,7 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.xyy.po.Category;
 import com.xyy.po.Music;
 import com.xyy.service.MusicCategoryService;
-import com.xyy.utils.JsonInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -23,86 +23,86 @@ public class MusicCategoryController {
     private MusicCategoryService musicCategoryService;
 
     @ResponseBody
-    @RequestMapping(value = "/findMusicCategory",method = RequestMethod.POST)
-    public JsonInfo findMusicCategory() {
+    @RequestMapping(value = "/findManyCategoryByNone")
+    public HashMap findManyCategoryByNone() {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
         List<Category> list=musicCategoryService.findMusicCategory();
 
         if( list.size()!=0) {
 
-            jsonInfo.setObj(list);
+            hashMap.put("categorylist",list);
 
-            return jsonInfo;
+            return hashMap;
         }
-        jsonInfo.setMsg("查找失败");
+        hashMap.put("msg","查找失败");
 
-        return jsonInfo;
+        return hashMap;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/addMusicCategory",method = RequestMethod.POST)
-    public JsonInfo addMusicCategory(@RequestBody Category category) {
+    @RequestMapping(value = "/addOneCategoryBycategory",method = RequestMethod.POST)
+    public HashMap addOneCategoryBycategory(@RequestBody Category category) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
         int rows=musicCategoryService.insertCategory(category);
 
         if(rows<=0) {
+            hashMap.put("msg","添加失败，请重试！");
 
-            jsonInfo.setMsg("添加失败，请重试！");
 
         }else{
+            hashMap.put("msg","添加成功");
 
-            jsonInfo.setMsg("添加成功");
         }
 
-        return jsonInfo;
+        return hashMap;
     }
 
 
     @ResponseBody
-    @RequestMapping(value = "/deleteMusicCategory",method = RequestMethod.POST)
-    public JsonInfo deleteMusicCategory(Integer[] cids) {
+    @RequestMapping(value = "/deleteManyCategoryBycids",method = RequestMethod.POST)
+    public HashMap deleteManyCategoryBycids(Integer[] cids) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
         int rows=musicCategoryService.deleteCategorys(cids);
 
         if(rows>0) {
+            hashMap.put("msg","删除成功");
 
-            jsonInfo.setMsg("删除成功");
 
         } else {
+            hashMap.put("msg","删除失败，请重试！");
 
-            jsonInfo.setMsg("删除失败，请重试！");
 
         }
 
-        return jsonInfo;
+        return hashMap;
     }
 
 
     @ResponseBody
-    @RequestMapping(value = "/updateMusicCategory",method = RequestMethod.POST)
-    public JsonInfo updateMusicCategory(@RequestBody Category category) {
+    @RequestMapping(value = "/updateOneCategoryBycategory",method = RequestMethod.POST)
+    public HashMap updateOneCategoryBycategory(@RequestBody Category category) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
         int rows=musicCategoryService.updateMusicCategory(category);
 
         if(rows>0) {
+            hashMap.put("msg","更新成功");
 
-            jsonInfo.setMsg("更新成功");
 
         } else {
+            hashMap.put("msg","更新失败，请重试！");
 
-            jsonInfo.setMsg("更新失败，请重试！");
 
         }
 
-        return jsonInfo;
+        return hashMap;
     }
 
 

@@ -17,8 +17,9 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 
 	@Override
-	public int addUser(User user) {
-		return this.userMapper.insert(user);
+	public Integer insertUser(User user) {
+		this.userMapper.insertSelective(user);
+		return user.getU_id();
 	}
 
 	@Override

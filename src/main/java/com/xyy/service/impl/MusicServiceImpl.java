@@ -26,8 +26,9 @@ public class MusicServiceImpl implements MusicService {
 
 
     @Override
-    public int insertMusic(Music music) {
-        return this.musicMapper.insertSelective(music);
+    public Integer insertMusic(Music music) {
+        this.musicMapper.insertSelective(music);
+        return music.getM_id();
     }
 
     @Override
@@ -46,7 +47,7 @@ public class MusicServiceImpl implements MusicService {
     public int updateMusic(Music music) {
         MusicExample example = new MusicExample();
         example.createCriteria().andM_idEqualTo(music.getM_id());
-        return this.musicMapper.updateByExample(music,example);
+        return this.musicMapper.updateByExampleSelective(music,example);
     }
 
     @Override
@@ -67,9 +68,20 @@ public class MusicServiceImpl implements MusicService {
     }
 
     @Override
+    public List<Music> findMusicByMC(Integer cid) {
+        MusicExample example = new MusicExample();
+        MusicExample.Criteria criteria = example.createCriteria();
+        if(cid!=null){
+            criteria.andCa_idEqualTo(cid);
+        }
+        return this.musicMapper.selectByExample(example);
+    }
+
+    @Override
     public List<Music> findMusicPaiHang(Integer size) {
         MusicExample example = new MusicExample();
-                example.setOrderByClause("hot desc limit 0,10");
+        String limitsize = String.valueOf(size);
+        example.setOrderByClause("hot desc limit 0,"+limitsize);
         return this.musicMapper.selectByExample(example);
     }
 }

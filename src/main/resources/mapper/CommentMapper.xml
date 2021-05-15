@@ -100,17 +100,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.xyy.po.Comment">
-    insert into comment (id, m_id, co_info, 
-      co_date, u_id)
-    values (#{id,jdbcType=INTEGER}, #{m_id,jdbcType=INTEGER}, #{co_info,jdbcType=VARCHAR}, 
-      #{co_date,jdbcType=DATE}, #{u_id,jdbcType=INTEGER})
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into comment (m_id, co_info, co_date, 
+      u_id)
+    values (#{m_id,jdbcType=INTEGER}, #{co_info,jdbcType=VARCHAR}, #{co_date,jdbcType=DATE}, 
+      #{u_id,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.xyy.po.Comment">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into comment
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="m_id != null">
         m_id,
       </if>
@@ -125,9 +128,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="m_id != null">
         #{m_id,jdbcType=INTEGER},
       </if>

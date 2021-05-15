@@ -14,7 +14,7 @@ public interface SingerService {
 
     List<Singer> findSingerBySid(Integer s_id);
 
-    int insertSinger(Singer singer);
+    Integer insertSinger(Singer singer);
 
     int deleteSingers(Integer[] sids);
 

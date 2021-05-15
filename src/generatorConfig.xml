@@ -44,15 +44,33 @@
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <!-- 指定数据库表 -->
-        <table tableName="category"><property name="useActualColumnNames" value="true"/></table>
-        <table tableName="comment"><property name="useActualColumnNames" value="true"/></table>
-        <table tableName="location"><property name="useActualColumnNames" value="true"/></table>
-        <table tableName="music"><property name="useActualColumnNames" value="true"/></table>
-        <table tableName="plmusic"><property name="useActualColumnNames" value="true"/></table>
-        <table tableName="playlist"><property name="useActualColumnNames" value="true"/></table>
-        <table tableName="admin"><property name="useActualColumnNames" value="true"/></table>
-        <table tableName="role"><property name="useActualColumnNames" value="true"/></table>
-        <table tableName="singer"><property name="useActualColumnNames" value="true"/></table>
-        <table tableName="user"><property name="useActualColumnNames" value="true"/></table>
+        <table tableName="category"><property name="useActualColumnNames" value="true"/>
+            <generatedKey column="ca_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="comment"><property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="location"><property name="useActualColumnNames" value="true"/>
+            <generatedKey column="l_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="music"><property name="useActualColumnNames" value="true"/>
+            <generatedKey column="m_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="plmusic"><property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="playlist"><property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="admin"><property name="useActualColumnNames" value="true"/>
+            <generatedKey column="admin_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="role"><property name="useActualColumnNames" value="true"/>
+            <generatedKey column="r_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="singer"><property name="useActualColumnNames" value="true"/>
+            <generatedKey column="s_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="user"><property name="useActualColumnNames" value="true"/>
+            <generatedKey column="u_id" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>
 </generatorConfiguration>

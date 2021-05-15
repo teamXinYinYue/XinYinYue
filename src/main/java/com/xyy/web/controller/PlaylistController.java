@@ -1,9 +1,7 @@
 package com.xyy.web.controller;
 
 import com.xyy.po.Playlist;
-import com.xyy.po.User;
 import com.xyy.service.PlaylistService;
-import com.xyy.utils.JsonInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -20,86 +19,79 @@ public class PlaylistController {
     private PlaylistService playlistService;
 
     @ResponseBody
-    @RequestMapping(value = "/findPlaylist",method = RequestMethod.POST)
-    public JsonInfo findPlaylist(Integer uid) {
+    @RequestMapping(value = "/findManyPlaylistByuid" )
+    public HashMap findManyPlaylistByuid(Integer uid) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
         List<Playlist> list=playlistService.findPlaylist(uid);
 
         if( list.size()!=0) {
 
-            jsonInfo.setObj(list);
+            hashMap.put("playlistlist",list);
 
-            return jsonInfo;
+            return hashMap;
         }
-        jsonInfo.setMsg("查找失败");
-
-        return jsonInfo;
+        hashMap.put("msg","查找失败");
+        return hashMap;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/addPlaylist",method = RequestMethod.POST)
-    public JsonInfo addPlaylist(Playlist playlist) {
+    @RequestMapping(value = "/addOnePlaylistByplaylist",method = RequestMethod.POST)
+    public HashMap addOnePlaylistByplaylist(Playlist playlist) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
         int rows=playlistService.insertPlaylist(playlist);
 
         if(rows<=0) {
-
-            jsonInfo.setMsg("歌单添加失败，请重试！");
+            hashMap.put("msg","歌单添加失败，请重试！");
 
         }else{
-
-            jsonInfo.setMsg("歌单添加成功");
+            hashMap.put("msg","歌单添加成功");
         }
 
-        return jsonInfo;
+        return hashMap;
     }
 
 
     @ResponseBody
-    @RequestMapping(value = "/deletePlaylist",method = RequestMethod.POST)
-    public JsonInfo deletePlaylist(String pname,Integer uid) {
+    @RequestMapping(value = "/deleteOnePlaylistBypnameuid",method = RequestMethod.POST)
+    public HashMap deleteOnePlaylistBypnameuid(String pname,Integer uid) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
         int rows=playlistService.deletePlaylist(pname,uid);
 
         if(rows>0) {
-
-            jsonInfo.setMsg("歌单删除成功");
+            hashMap.put("msg","歌单删除成功");
 
         } else {
-
-            jsonInfo.setMsg("歌单删除失败，请重试！");
+            hashMap.put("msg","歌单删除失败，请重试！");
 
         }
 
-        return jsonInfo;
+        return hashMap;
     }
 
 
     @ResponseBody
-    @RequestMapping(value = "/updatePlaylist",method = RequestMethod.POST)
-    public JsonInfo updatePlaylist(@RequestBody Playlist playlist) {
+    @RequestMapping(value = "/updateOnePlaylistByplaylist",method = RequestMethod.POST)
+    public HashMap updateOnePlaylistByplaylist(@RequestBody Playlist playlist) {
 
-        JsonInfo jsonInfo=new JsonInfo();
+        HashMap hashMap=new HashMap();
 
         int rows=playlistService.updatePlaylist(playlist);
 
         if(rows>0) {
-
-            jsonInfo.setMsg("歌单更新成功");
+            hashMap.put("msg","歌单更新成功");
 
         } else {
-
-            jsonInfo.setMsg("歌单更新失败，请重试！");
+            hashMap.put("msg","歌单更新失败，请重试！");
 
         }
 
-        return jsonInfo;
+        return hashMap;
     }
 
 }

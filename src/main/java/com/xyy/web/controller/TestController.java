@@ -2,20 +2,20 @@ package com.xyy.web.controller;
 
 import com.xyy.po.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-/**
- * @author user
- * @date 2021/4/11 - 14:26
- */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+
 @Controller
 public class TestController {
 
-    @RequestMapping(value = "/index")
-    public String toIndex() {return "test-html/index";}
+//    @RequestMapping(value = "/index")
+//    public String toIndex() {return "test-html/index";}
 
     @RequestMapping(value = "/skip")
     public String toSkip() {return "test-html/skip";}
@@ -42,10 +42,30 @@ public class TestController {
 //
     //测试json
     @ResponseBody
-    @RequestMapping(value = "/testJson",method = RequestMethod.POST)
-    public String testJson(@RequestBody User user) {
-        System.out.println(user.getU_name());
-        return "ok";
+    @RequestMapping(value = "/testJson")
+    public HashMap testJson(String u_name,String pass_word) //@RequestBody User User
+    {
+        HashMap<String,Object> hashMap=new HashMap<>();
+        hashMap.put("u_name",u_name);
+        hashMap.put("pass_word",pass_word);
+        return hashMap;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/testJson2",method = RequestMethod.POST)
+    public HashMap testJson() {
+        HashMap<String,Object> hashMap=new HashMap<>();
+        System.out.println(hashMap);
+        User user1=new User();
+        User user2=new User();
+        List<User> list =new ArrayList<>();
+        user1.setPriority(1);
+        user2.setPriority(1);
+        list.add(user1);
+        list.add(user2);
+        hashMap.put("list",list);
+        hashMap.put("ok","ok");
+        return hashMap;
     }
 
 //

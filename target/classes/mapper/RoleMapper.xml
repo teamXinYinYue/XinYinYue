@@ -98,17 +98,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.xyy.po.Role">
-    insert into role (r_id, roletype, priority
-      )
-    values (#{r_id,jdbcType=INTEGER}, #{roletype,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER}
-      )
+    <selectKey keyProperty="r_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into role (roletype, priority)
+    values (#{roletype,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.xyy.po.Role">
+    <selectKey keyProperty="r_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into role
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="r_id != null">
-        r_id,
-      </if>
       <if test="roletype != null">
         roletype,
       </if>
@@ -117,9 +118,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="r_id != null">
-        #{r_id,jdbcType=INTEGER},
-      </if>
       <if test="roletype != null">
         #{roletype,jdbcType=VARCHAR},
       </if>

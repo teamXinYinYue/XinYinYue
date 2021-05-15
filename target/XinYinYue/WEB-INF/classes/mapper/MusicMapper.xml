@@ -7,6 +7,9 @@
     <result column="ca_id" jdbcType="INTEGER" property="ca_id" />
     <result column="s_id" jdbcType="INTEGER" property="s_id" />
     <result column="priority" jdbcType="INTEGER" property="priority" />
+    <result column="hot" jdbcType="INTEGER" property="hot" />
+    <result column="mdate" jdbcType="TIMESTAMP" property="mdate" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    m_id, m_name, ca_id, s_id, priority
+    m_id, m_name, ca_id, s_id, priority, hot, mdate, path
   </sql>
   <select id="selectByExample" parameterType="com.xyy.po.MusicExample" resultMap="BaseResultMap">
     select
@@ -100,17 +103,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.xyy.po.Music">
-    insert into music (m_id, m_name, ca_id, 
-      s_id, priority)
-    values (#{m_id,jdbcType=INTEGER}, #{m_name,jdbcType=VARCHAR}, #{ca_id,jdbcType=INTEGER}, 
-      #{s_id,jdbcType=INTEGER}, #{priority,jdbcType=INTEGER})
+    <selectKey keyProperty="m_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into music (m_name, ca_id, s_id, 
+      priority, hot, mdate, 
+      path)
+    values (#{m_name,jdbcType=VARCHAR}, #{ca_id,jdbcType=INTEGER}, #{s_id,jdbcType=INTEGER}, 
+      #{priority,jdbcType=INTEGER}, #{hot,jdbcType=INTEGER}, #{mdate,jdbcType=TIMESTAMP}, 
+      #{path,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.xyy.po.Music">
+    <selectKey keyProperty="m_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into music
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="m_id != null">
-        m_id,
-      </if>
       <if test="m_name != null">
         m_name,
       </if>
@@ -123,11 +131,17 @@
       <if test="priority != null">
         priority,
       </if>
+      <if test="hot != null">
+        hot,
+      </if>
+      <if test="mdate != null">
+        mdate,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="m_id != null">
-        #{m_id,jdbcType=INTEGER},
-      </if>
       <if test="m_name != null">
         #{m_name,jdbcType=VARCHAR},
       </if>
@@ -139,6 +153,15 @@
       </if>
       <if test="priority != null">
         #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="hot != null">
+        #{hot,jdbcType=INTEGER},
+      </if>
+      <if test="mdate != null">
+        #{mdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -166,6 +189,15 @@
       <if test="record.priority != null">
         priority = #{record.priority,jdbcType=INTEGER},
       </if>
+      <if test="record.hot != null">
+        hot = #{record.hot,jdbcType=INTEGER},
+      </if>
+      <if test="record.mdate != null">
+        mdate = #{record.mdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.path != null">
+        path = #{record.path,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +209,10 @@
       m_name = #{record.m_name,jdbcType=VARCHAR},
       ca_id = #{record.ca_id,jdbcType=INTEGER},
       s_id = #{record.s_id,jdbcType=INTEGER},
-      priority = #{record.priority,jdbcType=INTEGER}
+      priority = #{record.priority,jdbcType=INTEGER},
+      hot = #{record.hot,jdbcType=INTEGER},
+      mdate = #{record.mdate,jdbcType=TIMESTAMP},
+      path = #{record.path,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +232,15 @@
       <if test="priority != null">
         priority = #{priority,jdbcType=INTEGER},
       </if>
+      <if test="hot != null">
+        hot = #{hot,jdbcType=INTEGER},
+      </if>
+      <if test="mdate != null">
+        mdate = #{mdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
     </set>
     where m_id = #{m_id,jdbcType=INTEGER}
   </update>
@@ -205,7 +249,10 @@
     set m_name = #{m_name,jdbcType=VARCHAR},
       ca_id = #{ca_id,jdbcType=INTEGER},
       s_id = #{s_id,jdbcType=INTEGER},
-      priority = #{priority,jdbcType=INTEGER}
+      priority = #{priority,jdbcType=INTEGER},
+      hot = #{hot,jdbcType=INTEGER},
+      mdate = #{mdate,jdbcType=TIMESTAMP},
+      path = #{path,jdbcType=VARCHAR}
     where m_id = #{m_id,jdbcType=INTEGER}
   </update>
 </mapper>

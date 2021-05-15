@@ -2,14 +2,10 @@ package com.xyy.web.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.xyy.po.Singer;
 import com.xyy.po.User;
 import com.xyy.service.UserService;
-import com.xyy.utils.JsonInfo;
-import com.xyy.utils.MyPageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -29,89 +26,93 @@ public class UserController {
 
 
 	@ResponseBody
-	@RequestMapping(value = "/login",method = RequestMethod.POST)
-	public JsonInfo login(@Valid @RequestBody User user, BindingResult bindingResult,
+	@RequestMapping(value = "/loginOneUserByuser",method = RequestMethod.POST)
+	public HashMap loginOneUserByuser(@Valid @RequestBody User user, BindingResult bindingResult,
 						  HttpSession session) {
-		JsonInfo jsonInfo=new JsonInfo();
+		HashMap hashMap=new HashMap();
 		//数据校验
 		if(bindingResult.getErrorCount()>0){
 			FieldError Error = bindingResult.getFieldError();
-			jsonInfo.setMsg(Error.getDefaultMessage());
-			return jsonInfo;
+			hashMap.put("msg",Error.getDefaultMessage());
+			return hashMap;
 		}
 
 		User userResult=userService.findUser(user.getU_name(),user.getPass_word());
 		if(userResult!=null) {
 
 			session.setAttribute("login_user", userResult);
-			jsonInfo.setMsg("登录成功");
-			jsonInfo.setObj(userResult);
-			return jsonInfo;
+			hashMap.put("msg","登录成功");
+			hashMap.put("login_user",userResult);
+			return hashMap;
 		}
-		jsonInfo.setMsg( "密码或用户名错误，请重新登录");
-		return jsonInfo;
+		hashMap.put("msg","密码或用户名错误，请重新登录");
+		return hashMap;
 
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/register",method = RequestMethod.POST)
-	public JsonInfo addUser(@Valid @RequestBody  User user, BindingResult bindingResult,
+	@RequestMapping(value = "/registerOneUserByuser",method = RequestMethod.POST)
+	public HashMap registerOneUserByuser(@Valid @RequestBody  User user, BindingResult bindingResult,
 							HttpSession session) {
-		JsonInfo jsonInfo=new JsonInfo();
+		HashMap hashMap=new HashMap();
 		//数据校验
 		if(bindingResult.getErrorCount()>0){
 			FieldError Error = bindingResult.getFieldError();
-			jsonInfo.setMsg(Error.getDefaultMessage());
-			return jsonInfo;
+			hashMap.put("msg",Error.getDefaultMessage());
+			return hashMap;
 		}
 		if(userService.findUserByName(user.getU_name())!=null) {
-			jsonInfo.setMsg("已有同名用户");
-			return jsonInfo;
+			hashMap.put("msg","已有同名用户");
+			return hashMap;
 		}
 
 		User userResult=new User();
 		userResult.setU_name(user.getU_name());
 		userResult.setPass_word(user.getPass_word());
-
-		int rows=userService.addUser(userResult);
-
-		if(rows>0) {
+		userResult.setPriority(1);
+		userResult.setR_id(user.getR_id());
+		userResult.setScore(0);
+		userResult.setSex(user.getSex());
+		userResult.setSign_info(user.getSign_info());
+		Integer uid=userService.insertUser(userResult);
+		userResult.setU_id(uid);
+		if(uid!=null) {
 
 			session.setAttribute("login_user", userResult);
-			jsonInfo.setMsg("用户注册成功");
-			jsonInfo.setObj(userResult);
-			return jsonInfo;
+			hashMap.put("msg","用户注册成功");
+			hashMap.put("login_user",userResult);
+			return hashMap;
 
 		} else {
-			jsonInfo.setMsg("用户添加异常，请重试！");
-			return jsonInfo;
+			hashMap.put("msg","用户添加异常，请重试！");
+			return hashMap;
 
 		}
 
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/deleteUser")
-	public JsonInfo deleteUser(Integer u_id) {
-		JsonInfo jsonInfo=new JsonInfo();
+	@RequestMapping(value = "/deleteOneUserByuid",method = RequestMethod.POST)
+	public HashMap deleteOneUserByuid(Integer u_id) {
+		HashMap hashMap=new HashMap();
 		int rows=userService.deleteUser(u_id);
 
 		if(rows>0) {
 
-			jsonInfo.setMsg("用户删除成功！");
+			hashMap.put("msg","用户删除成功！");
 
 		} else {
 
-			jsonInfo.setMsg("用户删除异常，请重试！");
+			hashMap.put("msg","用户删除异常，请重试！");
 
 		}
-		return jsonInfo;
+		return hashMap;
 
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/userPage")
-	public MyPageInfo<User> userPage(String uname,Integer pageNum,Integer pageSize) {
+	@RequestMapping(value = "/pageManyUserByuname")
+	public HashMap pageManyUserByuname(String uname,Integer pageNum,Integer pageSize) {
 		if(pageNum==null){
 			pageNum=1;
 		}else if(pageNum<1){
@@ -133,8 +134,12 @@ public class UserController {
 		PageInfo<User> info = new PageInfo(list);
 		int totalPage=info.getPages();
 
-		MyPageInfo<User> mypage=new MyPageInfo<>(list,pageNum,pageSize,totalPage);
-		return mypage;
+		HashMap hashMap=new HashMap();
+		hashMap.put("pageuserlist",list);
+		hashMap.put("pageNum",pageNum);
+		hashMap.put("pageSize",pageSize);
+		hashMap.put("totalPage",totalPage);
+		return hashMap;
 
 	}
 
