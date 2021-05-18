@@ -33,7 +33,8 @@ public class UserController {
 		//数据校验
 		if(bindingResult.getErrorCount()>0){
 			FieldError Error = bindingResult.getFieldError();
-			hashMap.put("msg",Error.getDefaultMessage());
+			hashMap.put("error",Error.getDefaultMessage());
+			hashMap.put("msg",false);
 			return hashMap;
 		}
 
@@ -41,11 +42,12 @@ public class UserController {
 		if(userResult!=null) {
 
 			session.setAttribute("login_user", userResult);
-			hashMap.put("msg","登录成功");
+			hashMap.put("msg",true);
 			hashMap.put("login_user",userResult);
 			return hashMap;
 		}
-		hashMap.put("msg","密码或用户名错误，请重新登录");
+		hashMap.put("msg",false);
+		hashMap.put("error","密码或用户名错误，请重新登录");
 		return hashMap;
 
 	}
@@ -58,11 +60,13 @@ public class UserController {
 		//数据校验
 		if(bindingResult.getErrorCount()>0){
 			FieldError Error = bindingResult.getFieldError();
-			hashMap.put("msg",Error.getDefaultMessage());
+			hashMap.put("error",Error.getDefaultMessage());
+			hashMap.put("msg",false);
 			return hashMap;
 		}
 		if(userService.findUserByName(user.getU_name())!=null) {
-			hashMap.put("msg","已有同名用户");
+			hashMap.put("error","已有同名用户");
+			hashMap.put("msg",false);
 			return hashMap;
 		}
 
@@ -79,12 +83,13 @@ public class UserController {
 		if(uid!=null) {
 
 			session.setAttribute("login_user", userResult);
-			hashMap.put("msg","用户注册成功");
+			hashMap.put("msg",true);
 			hashMap.put("login_user",userResult);
 			return hashMap;
 
 		} else {
-			hashMap.put("msg","用户添加异常，请重试！");
+			hashMap.put("error","用户添加异常，请重试！");
+			hashMap.put("msg",false);
 			return hashMap;
 
 		}
@@ -99,11 +104,11 @@ public class UserController {
 
 		if(rows>0) {
 
-			hashMap.put("msg","用户删除成功！");
+			hashMap.put("msg",true);
 
 		} else {
+			hashMap.put("msg",false);
 
-			hashMap.put("msg","用户删除异常，请重试！");
 
 		}
 		return hashMap;

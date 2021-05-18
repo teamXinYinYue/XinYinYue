@@ -29,6 +29,7 @@ public class CookieController {
         Integer hot;
         Cookie[] cookies = request.getCookies();
         for(Cookie cookie:cookies){
+
             if(cookie.getName().contains("times")){
                 hot=0;
                 cookieName=cookie.getName();

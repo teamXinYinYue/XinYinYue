@@ -80,7 +80,7 @@ public class UploadController {
         locationService.insertLocation(location);
 
         HashMap hashMap=new HashMap();
-        hashMap.put("msg","上传成功！");
+        hashMap.put("msg",true);
         hashMap.put("path",path);
         return hashMap;
 
@@ -138,9 +138,10 @@ public class UploadController {
         Integer m_id=musicService.insertMusic(music);
         if(m_id==null) {
 
-            hashMap.put("msg","添加失败，请重试！");
+            hashMap.put("msg",false);
 
         }else{
+            hashMap.put("msg",true);
             hashMap.put("path",path);
             hashMap.put("mid",m_id);
         }

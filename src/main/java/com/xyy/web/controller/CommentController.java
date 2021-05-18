@@ -30,11 +30,11 @@ public class CommentController {
 
         if( list.size()!=0) {
             hashMap.put("commentlist",list);
-
+            hashMap.put("msg",true);
 
             return hashMap;
         }
-        hashMap.put("msg","查找失败");
+        hashMap.put("msg",false);
 
         return hashMap;
     }
@@ -50,9 +50,10 @@ public class CommentController {
         if( list.size()!=0) {
 
             hashMap.put("commentlist",list);
+            hashMap.put("msg",true);
             return hashMap;
         }
-        hashMap.put("msg","查找失败");
+        hashMap.put("msg",false);
         return hashMap;
     }
 
@@ -64,13 +65,13 @@ public class CommentController {
 
         int rows=commentService.insertComment(comment);
 
-        if(rows<=0) {
-            hashMap.put("msg","评论添加失败，请重试！");
+        if(rows>0) {
 
+            hashMap.put("msg",true);
 
         }else{
-            hashMap.put("msg","评论添加成功");
 
+            hashMap.put("msg",false);
         }
 
         return hashMap;
@@ -86,11 +87,11 @@ public class CommentController {
         int rows=commentService.deleteComments(coids);
 
         if(rows>0) {
-            hashMap.put("msg","评论删除成功");
+            hashMap.put("msg",true);
 
 
         } else {
-            hashMap.put("msg","评论删除失败，请重试！");
+            hashMap.put("msg",false);
 
 
         }
@@ -108,11 +109,11 @@ public class CommentController {
         int rows=commentService.updateComment(comment);
 
         if(rows>0) {
-            hashMap.put("msg","评论更新成功");
+            hashMap.put("msg",true);
 
 
         } else {
-            hashMap.put("msg","评论更新失败，请重试！");
+            hashMap.put("msg",false);
 
 
         }

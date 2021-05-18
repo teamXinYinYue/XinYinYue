@@ -39,9 +39,11 @@ public class MusicController {
         if( list.size()!=0) {
 
             hashMap.put("musiclist",list);
+            hashMap.put("msg",true);
+
             return hashMap;
         }
-        hashMap.put("msg","查找失败");
+        hashMap.put("msg",false);
 
 
         return hashMap;
@@ -60,10 +62,10 @@ public class MusicController {
 
         if(rows>0) {
 
-            hashMap.put("msg","删除成功");
+            hashMap.put("msg",true);
 
         } else {
-            hashMap.put("msg","删除失败，请重试！");
+            hashMap.put("msg",false);
 
         }
 
@@ -80,11 +82,11 @@ public class MusicController {
         int rows=musicService.updateMusic(music);
 
         if(rows>0) {
-            hashMap.put("msg","更新成功");
+            hashMap.put("msg",true);
 
 
         } else {
-            hashMap.put("msg","更新失败，请重试！");
+            hashMap.put("msg",false);
 
 
         }

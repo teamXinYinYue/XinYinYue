@@ -31,9 +31,12 @@ public class SingerController {
         if( list.size()!=0) {
 
             hashMap.put("singerlist",list);
+            hashMap.put("msg",true);
+
             return hashMap;
         }
-        hashMap.put("msg","查找失败");
+        hashMap.put("msg",false);
+
         return hashMap;
     }
 
@@ -48,9 +51,12 @@ public class SingerController {
         if( list.size()!=0) {
 
             hashMap.put("singerlist",list);
+            hashMap.put("msg",true);
+
             return hashMap;
         }
-        hashMap.put("msg","查找失败");
+        hashMap.put("msg",false);
+
         return hashMap;
     }
 
@@ -65,9 +71,12 @@ public class SingerController {
         if( list.size()!=0) {
 
             hashMap.put("singerlist",list);
+            hashMap.put("msg",true);
+
             return hashMap;
         }
-        hashMap.put("msg","查找失败");
+        hashMap.put("msg",false);
+
         return hashMap;
     }
 
@@ -80,12 +89,14 @@ public class SingerController {
         Integer sid=singerService.insertSinger(singer);
 
         singer.setS_id(sid);
-        if(sid==null) {
+        if(sid!=null) {
 
-            hashMap.put("msg","添加失败，请重试！");
+            hashMap.put("msg",true);
+
 
         }else{
-            hashMap.put("msg","添加成功");
+            hashMap.put("msg",false);
+
         }
 
         return hashMap;
@@ -101,10 +112,11 @@ public class SingerController {
         int rows=singerService.deleteSingers(sids);
 
         if(rows>0) {
-            hashMap.put("msg","删除成功");
+            hashMap.put("msg",true);
+
 
         } else {
-            hashMap.put("msg","删除失败，请重试！");
+            hashMap.put("msg",false);
 
         }
 
@@ -121,11 +133,12 @@ public class SingerController {
         int rows=singerService.updateSinger(singer);
 
         if(rows>0) {
-            hashMap.put("msg","更新成功");
+            hashMap.put("msg",true);
+
 
         } else {
 
-            hashMap.put("msg","更新失败，请重试！");
+            hashMap.put("msg",false);
 
         }
 

@@ -29,10 +29,12 @@ public class PlmusicController {
         if( list.size()!=0) {
 
             hashMap.put("plmusiclist",list);
+            hashMap.put("msg",true);
 
             return hashMap;
         }
-        hashMap.put("msg","查找失败");
+        hashMap.put("msg",false);
+
 
         return hashMap;
     }
@@ -45,13 +47,14 @@ public class PlmusicController {
 
         int rows=plmusicService.insertPlmusic(plmids,pname,uid);
 
-        if(rows<=0) {
+        if(rows>0) {
 
-            hashMap.put("msg","歌单歌曲添加失败，请重试！");
+            hashMap.put("msg",true);
 
 
         }else{
-            hashMap.put("msg","歌单歌曲添加成功");
+            hashMap.put("msg",false);
+
         }
 
         return hashMap;
@@ -67,12 +70,12 @@ public class PlmusicController {
         int rows=plmusicService.deletePlmusic(plmids,pname,uid);
 
         if(rows>0) {
+            hashMap.put("msg",true);
 
-            hashMap.put("msg","歌单歌曲删除成功");
 
         } else {
+            hashMap.put("msg",false);
 
-            hashMap.put("msg","歌单歌曲删除失败，请重试！");
 
         }
 

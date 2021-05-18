@@ -30,10 +30,12 @@ public class LocationController {
 
         if( list.size()!=0) {
             hashMap.put("locationlist",list);
+            hashMap.put("msg",true);
 
             return hashMap;
         }
-        hashMap.put("msg","查找失败");
+        hashMap.put("msg",false);
+
 
         return hashMap;
     }
@@ -48,10 +50,12 @@ public class LocationController {
 
         if( list.size()!=0) {
             hashMap.put("locationlist",list);
+            hashMap.put("msg",true);
 
             return hashMap;
         }
-        hashMap.put("msg","查找失败");
+        hashMap.put("msg",false);
+
         return hashMap;
     }
 
@@ -65,10 +69,11 @@ public class LocationController {
 
         if( list.size()!=0) {
             hashMap.put("locationlist",list);
+            hashMap.put("msg",true);
 
             return hashMap;
         }
-        hashMap.put("msg","查找失败");
+        hashMap.put("msg",false);
 
         return hashMap;
     }
@@ -81,13 +86,13 @@ public class LocationController {
 
         int rows=locationService.insertLocation(location);
 
-        if(rows<=0) {
-            hashMap.put("msg","添加失败，请重试！");
+        if(rows>0) {
 
+            hashMap.put("msg",true);
 
         }else{
-            hashMap.put("msg","添加成功");
 
+            hashMap.put("msg",false);
         }
 
         return hashMap;
@@ -103,13 +108,11 @@ public class LocationController {
         int rows=locationService.deleteLocations(lids);
 
         if(rows>0) {
-            hashMap.put("msg","删除成功");
 
-
+            hashMap.put("msg",true);
         } else {
-            hashMap.put("msg","删除失败，请重试！");
 
-
+            hashMap.put("msg",false);
         }
 
         return hashMap;
@@ -125,11 +128,11 @@ public class LocationController {
         int rows=locationService.updateLocation(location);
 
         if(rows>0) {
-            hashMap.put("msg","更新成功");
+            hashMap.put("msg",true);
 
 
         } else {
-            hashMap.put("msg","更新失败，请重试！");
+            hashMap.put("msg",false);
 
 
         }

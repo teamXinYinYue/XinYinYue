@@ -33,11 +33,10 @@ public class MusicCategoryController {
         if( list.size()!=0) {
 
             hashMap.put("categorylist",list);
-
+            hashMap.put("msg",true);
             return hashMap;
         }
-        hashMap.put("msg","查找失败");
-
+        hashMap.put("msg",false);
         return hashMap;
     }
 
@@ -49,12 +48,12 @@ public class MusicCategoryController {
 
         int rows=musicCategoryService.insertCategory(category);
 
-        if(rows<=0) {
-            hashMap.put("msg","添加失败，请重试！");
+        if(rows>0) {
+            hashMap.put("msg",true);
 
 
         }else{
-            hashMap.put("msg","添加成功");
+            hashMap.put("msg",false);
 
         }
 
@@ -71,11 +70,11 @@ public class MusicCategoryController {
         int rows=musicCategoryService.deleteCategorys(cids);
 
         if(rows>0) {
-            hashMap.put("msg","删除成功");
+            hashMap.put("msg",true);
 
 
         } else {
-            hashMap.put("msg","删除失败，请重试！");
+            hashMap.put("msg",false);
 
 
         }
@@ -93,11 +92,11 @@ public class MusicCategoryController {
         int rows=musicCategoryService.updateMusicCategory(category);
 
         if(rows>0) {
-            hashMap.put("msg","更新成功");
+            hashMap.put("msg",true);
 
 
         } else {
-            hashMap.put("msg","更新失败，请重试！");
+            hashMap.put("msg",false);
 
 
         }

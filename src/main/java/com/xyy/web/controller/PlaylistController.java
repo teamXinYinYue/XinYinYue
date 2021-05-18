@@ -44,11 +44,12 @@ public class PlaylistController {
 
         int rows=playlistService.insertPlaylist(playlist);
 
-        if(rows<=0) {
-            hashMap.put("msg","歌单添加失败，请重试！");
+        if(rows>0) {
+            hashMap.put("msg",true);
 
         }else{
-            hashMap.put("msg","歌单添加成功");
+            hashMap.put("msg",false);
+
         }
 
         return hashMap;
@@ -64,10 +65,12 @@ public class PlaylistController {
         int rows=playlistService.deletePlaylist(pname,uid);
 
         if(rows>0) {
-            hashMap.put("msg","歌单删除成功");
+            hashMap.put("msg",true);
+
 
         } else {
-            hashMap.put("msg","歌单删除失败，请重试！");
+            hashMap.put("msg",false);
+
 
         }
 
@@ -84,10 +87,10 @@ public class PlaylistController {
         int rows=playlistService.updatePlaylist(playlist);
 
         if(rows>0) {
-            hashMap.put("msg","歌单更新成功");
+            hashMap.put("msg",true);
 
         } else {
-            hashMap.put("msg","歌单更新失败，请重试！");
+            hashMap.put("msg",false);
 
         }
 
