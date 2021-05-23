@@ -2,33 +2,43 @@
 
 ## 项目api
 
-OrderManyMusicBysize
+findManyCommentBymid
 @ResponseBody
- @RequestMapping(value="/OrderManyMusicBysize")
-public java.util.HashMap OrderManyMusicBysize(java.lang.Integer size)
-deleteManyMusicBymids
+ @RequestMapping(value="/findManyCommentBymid")
+public java.util.HashMap findManyCommentBymid(java.lang.Integer mid)
+findManyCommentByuid
 @ResponseBody
- @RequestMapping(value="/deleteManyMusicBymids",
+ @RequestMapping(value="/findManyCommentByuid")
+public java.util.HashMap findManyCommentByuid(java.lang.Integer uid)
+addOneCommentByComment
+@ResponseBody
+ @RequestMapping(value="/addOneCommentBycomment",
                 method=POST)
-public java.util.HashMap deleteManyMusicBymids(java.lang.Integer[] mids)
-updateOneMusicBymusic
+public java.util.HashMap addOneCommentByComment(@RequestBody
+                                                                                                                                                Comment comment)
+deleteManyCommentBycoids
 @ResponseBody
- @RequestMapping(value="/updateOneMusicBymusic",
+ @RequestMapping(value="/deleteManyCommentBycoids",
                 method=POST)
-public java.util.HashMap updateOneMusicBymusic(@RequestBody
-                                                                                                                                              Music music)
-pageManyMusic
+public java.util.HashMap deleteManyCommentBycoids(java.lang.Integer[] coids)
+updateOneCommentByComment
 @ResponseBody
- @RequestMapping(value="/pageManyMusic")
-public java.util.HashMap pageManyMusic(java.lang.Integer pageNum,
-                                                                                                java.lang.Integer pageSize)
-pageManyMusicByMC
+ @RequestMapping(value="/updateOneCommentBycomment",
+                method=POST)
+public java.util.HashMap updateOneCommentByComment(@RequestBody
+                                                                                                                                                      Comment comment)
+pageManyCommentBymid
 @ResponseBody
- @RequestMapping(value="/pageManyMusicByMC")
-public java.util.HashMap pageManyMusicByMC(java.lang.String cname,
-                                                                                                        java.lang.String sname,
-                                                                                                        java.lang.String mname,
-                                                                                                        java.lang.Integer pageNum,
+ @RequestMapping(value="/pageManyCommentBymid")
+public java.util.HashMap pageManyCommentBymid(java.lang.Integer mid,
+                                                                                                              java.lang.Integer pageNum,
+                                                                                                              java.lang.Integer pageSize)
+pageManyCommentByuid
+@ResponseBody
+ @RequestMapping(value="/pageManyCommentByuid")
+public java.util.HashMap pageManyCommentByuid(java.lang.Integer uid,
+                                                                                                              java.lang.Integer pageNum,
+                                                                                                              java.lang.Integer pageSize)
                                       
 
 ## 项目网址
