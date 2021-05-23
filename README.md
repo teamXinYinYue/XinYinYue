@@ -2,7 +2,7 @@
 
 ## 项目api
 
-XinYinYue/doc/
+查看XinYinYue/doc/
 
 ## 项目网址
 
