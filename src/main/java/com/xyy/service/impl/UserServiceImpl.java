@@ -1,14 +1,13 @@
 package com.xyy.service.impl;
 
-import java.util.List;
-
 import com.xyy.dao.UserMapper;
+import com.xyy.po.User;
 import com.xyy.po.UserExample;
+import com.xyy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.xyy.po.User;
-import com.xyy.service.UserService;
+import java.util.List;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -44,6 +43,17 @@ public class UserServiceImpl implements UserService {
 		example.createCriteria().andU_nameLike(u_name);
 		List<User> userList = this.userMapper.selectByExample(example);
 		return userList;
+	}
+
+	@Override
+	public Integer findUserByNameEx(String u_name) {
+		UserExample example = new UserExample();
+		example.createCriteria().andU_nameEqualTo(u_name);
+		List<User> userList = this.userMapper.selectByExample(example);
+		for (User user:userList) {
+			return 1;
+		}
+		return 0;
 	}
 
 	@Override

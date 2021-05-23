@@ -4,7 +4,9 @@ import com.xyy.po.Admin;
 import com.xyy.po.AdminExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface AdminMapper {
     long countByExample(AdminExample example);
 

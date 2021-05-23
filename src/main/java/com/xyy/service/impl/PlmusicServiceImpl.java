@@ -44,7 +44,7 @@ public class PlmusicServiceImpl implements PlmusicService {
 
 
     @Override
-    public List<Plmusic> findPlmusic(Integer u_id,String p_name) {
+    public List<Plmusic> findPlmusic(Integer u_id, String p_name) {
 
         PlmusicExample example = new PlmusicExample();
         example.createCriteria().andU_idEqualTo(u_id).andP_nameEqualTo(p_name);

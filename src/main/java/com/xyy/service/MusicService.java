@@ -14,7 +14,7 @@ public interface MusicService {
 
     int updateMusic(Music music);
 
-    List<Music> findMusicByMC(Integer cid,Integer sid,String mname);
+    List<Music> findMusicByMC(Integer cid, Integer sid, String mname);
 
     List<Music> findMusicByMC(Integer cid);
 

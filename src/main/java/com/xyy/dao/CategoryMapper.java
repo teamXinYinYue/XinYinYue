@@ -4,7 +4,9 @@ import com.xyy.po.Category;
 import com.xyy.po.CategoryExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CategoryMapper {
     long countByExample(CategoryExample example);
 

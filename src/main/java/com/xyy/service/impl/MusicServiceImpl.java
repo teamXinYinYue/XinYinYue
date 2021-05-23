@@ -51,7 +51,7 @@ public class MusicServiceImpl implements MusicService {
     }
 
     @Override
-    public List<Music> findMusicByMC(Integer cid,Integer sid,String mname) {
+    public List<Music> findMusicByMC(Integer cid, Integer sid, String mname) {
         MusicExample example = new MusicExample();
         MusicExample.Criteria criteria = example.createCriteria();
         if(cid!=null){

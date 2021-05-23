@@ -16,6 +16,8 @@ public interface UserService {
 
 	List<User> findUserByName(String u_name);
 
+	Integer findUserByNameEx(String u_name);
+
 	List<User> findUser();
 }
 

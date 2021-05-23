@@ -4,7 +4,9 @@ import com.xyy.po.Location;
 import com.xyy.po.LocationExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface LocationMapper {
     long countByExample(LocationExample example);
 

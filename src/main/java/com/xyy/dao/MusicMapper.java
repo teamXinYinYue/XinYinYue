@@ -4,7 +4,9 @@ import com.xyy.po.Music;
 import com.xyy.po.MusicExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface MusicMapper {
     long countByExample(MusicExample example);
 
