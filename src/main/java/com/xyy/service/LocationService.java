@@ -11,6 +11,8 @@ public interface LocationService {
 
     List<Location> findLocationByLid(Integer l_id);
 
+    List<Location> findLocationBySid(Integer s_id);
+
     Integer insertLocation(Location location);
 
     int deleteLocations(Integer[] lids);

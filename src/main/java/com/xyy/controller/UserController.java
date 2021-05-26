@@ -73,7 +73,11 @@ public class UserController {
 		User userResult=new User();
 		userResult.setU_name(user.getU_name());
 		userResult.setPass_word(user.getPass_word());
-		userResult.setPriority(1);
+		if(user.getPriority()==null){
+			userResult.setPriority(1);
+		}else{
+			userResult.setPriority(user.getPriority());
+		}
 		userResult.setR_id(1);
 		userResult.setScore(0);
 		userResult.setSex(user.getSex());

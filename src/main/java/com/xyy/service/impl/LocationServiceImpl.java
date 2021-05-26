@@ -29,6 +29,14 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
+    public List<Location> findLocationBySid(Integer s_id) {
+        LocationExample example=new LocationExample();
+        example.createCriteria().andS_idEqualTo(s_id);
+        example.setOrderByClause("l_id desc");
+        return this.locationMapper.selectByExample(example);
+    }
+
+    @Override
     public Integer insertLocation(Location location) {
         this.locationMapper.insertSelective(location);
         return location.getL_id();

@@ -2,54 +2,59 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>json交互测试</title>
-    <script
-            src="https://code.jquery.com/jquery-3.6.0.js"
-            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-            crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/jqaj.js">
+<!--    <script-->
+<!--            src="https://code.jquery.com/jquery-3.6.0.js"-->
+<!--            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="-->
+<!--            crossorigin="anonymous"></script>-->
+<!--    <script type="text/javascript" src="js/jqaj.js">-->
+<!--    </script>-->
+    <script type="text/javascript">
+        window.onload=function(){
+            window.location.href="frontwebapp/frontappindex.html";
+        }
     </script>
 </head>
 <body>
-<h2>添加用户</h2>
-<form>
-    账号：<input type="text" name="u_name" id="u_name"/><br/>
-    密码：<input type="password" name="pass_word" id="pass_word"/><br/>
-    <p>密码格式不正确强密码,必须包含大小写字母和数字的组合，不能使用特殊字符，长度在 6-20 之间</p>
-    <input type="button"  id="button"   value="注册"/>
-</form>
-<hr>
-<h2>添加歌手</h2>
-    歌手名：<input type="text" name="sname" id="sname"/><br/>
-    歌手介绍：<input type="text" name="sinfo" id="sinfo"/><br/>
-<input type="button"  id="buttonsinger"   value="注册"/>
-<hr>
-<h2>添加歌手图片</h2>
-<div class="img"><img id="imgshow" src="" width="100" height="100" /></div>
-<form>
-    当前歌手id为1<br>
-    选择本地图片：<input type="file" id="fileUpload" name="file" />
-    <input id="sid" type="hidden" name="sid" value="1">
-    图片信息：<input id="iinfo" type="text" name="iinfo" value="春光下的xxx">
-    <input type="button" id="buttonUpload" value="提交图片信息">
-</form>
-<hr>
-<h2>添加音乐</h2>
-<div class="music">
-    <audio id="showmusic"  src="" controls="controls"></audio>
-    <input id="playmusicid" type="hidden" name="playmusicid" value="">
-</div>
-<form>
-    歌曲类型：
-    <select id="cname">
-        <option value="rock">rock</option>
-        <option value="pop">pop</option>
-        <option value="electronic">electronic</option>
-        <option value="classical">classical</option>
-    </select>
-    歌曲名：<input type="text" id="mname" name="mname" value="1">
-    <input id="sid2" type="hidden" name="sid2" value="1">
-    文件：<input type="file" id="fileName" name="fileName" value="点击上传" />
-    <input type="button" id="musicButtonUpload" value="提交歌曲信息" />
-</form>
+<!--<h2>添加用户</h2>-->
+<!--<form>-->
+<!--    账号：<input type="text" name="u_name" id="u_name"/><br/>-->
+<!--    密码：<input type="password" name="pass_word" id="pass_word"/><br/>-->
+<!--    <p>密码格式不正确强密码,必须包含大小写字母和数字的组合，不能使用特殊字符，长度在 6-20 之间</p>-->
+<!--    <input type="button"  id="button"   value="注册"/>-->
+<!--</form>-->
+<!--<hr>-->
+<!--<h2>添加歌手</h2>-->
+<!--    歌手名：<input type="text" name="sname" id="sname"/><br/>-->
+<!--    歌手介绍：<input type="text" name="sinfo" id="sinfo"/><br/>-->
+<!--<input type="button"  id="buttonsinger"   value="注册"/>-->
+<!--<hr>-->
+<!--<h2>添加歌手图片</h2>-->
+<!--<div class="img"><img id="imgshow" src="" width="100" height="100" /></div>-->
+<!--<form>-->
+<!--    当前歌手id为1<br>-->
+<!--    选择本地图片：<input type="file" id="fileUpload" name="file" />-->
+<!--    <input id="sid" type="hidden" name="sid" value="1">-->
+<!--    图片信息：<input id="iinfo" type="text" name="iinfo" value="春光下的xxx">-->
+<!--    <input type="button" id="buttonUpload" value="提交图片信息">-->
+<!--</form>-->
+<!--<hr>-->
+<!--<h2>添加音乐</h2>-->
+<!--<div class="music">-->
+<!--    <audio id="showmusic"  src="" controls="controls"></audio>-->
+<!--    <input id="playmusicid" type="hidden" name="playmusicid" value="">-->
+<!--</div>-->
+<!--<form>-->
+<!--    歌曲类型：-->
+<!--    <select id="cname">-->
+<!--        <option value="rock">rock</option>-->
+<!--        <option value="pop">pop</option>-->
+<!--        <option value="electronic">electronic</option>-->
+<!--        <option value="classical">classical</option>-->
+<!--    </select>-->
+<!--    歌曲名：<input type="text" id="mname" name="mname" value="1">-->
+<!--    <input id="sid2" type="hidden" name="sid2" value="1">-->
+<!--    文件：<input type="file" id="fileName" name="fileName" value="点击上传" />-->
+<!--    <input type="button" id="musicButtonUpload" value="提交歌曲信息" />-->
+<!--</form>-->
 </body>
 </html>

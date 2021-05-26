@@ -154,11 +154,11 @@ $(function () {
         alert(document.cookie);
     });
 
-    $(window).on('load', function() {
+    $(window).on('unload', function() {
         if(document.cookie !=""){
             var fd = new FormData();
             fd.append('cookie', document.cookie);
-            navigator.sendBeacon('saveOneCookie', fd);
+            navigator.sendBeacon('/saveOneCookie', fd);
         }
 
     });

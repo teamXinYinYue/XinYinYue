@@ -15,7 +15,7 @@ import java.util.List;
 public class TestController {
 
 //    @RequestMapping(value = "/index")
-//    public String toIndex() {return "test-html/index";}
+//    public String toIndex() {return "frontwebapp/test";}
 
     @RequestMapping(value = "/skip")
     public String toSkip() {return "/skip";}

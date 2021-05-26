@@ -61,7 +61,7 @@ public class MusicServiceImpl implements MusicService {
             criteria.andS_idEqualTo(sid);
         }
         if(mname!=null){
-            criteria.andM_nameLike(mname);
+            criteria.andM_nameLike('%'+mname+'%');
         }
         example.setOrderByClause("hot desc");
         return this.musicMapper.selectByExample(example);

@@ -20,52 +20,14 @@ public class LocationController {
     @Autowired
     private LocationService locationService;
 
+
     @ResponseBody
-    @RequestMapping(value = "/findManyLocationByNone" )
-    public HashMap findManyLocationByNone() {
+    @RequestMapping(value = "/findManyLoactionBysid" )
+    public HashMap findManyLoactionByslid(Integer sid) {
 
         HashMap hashMap=new HashMap();
 
-        List<Location> list=locationService.findLocation();
-
-        if( list.size()!=0) {
-            hashMap.put("locationlist",list);
-            hashMap.put("msg",true);
-
-            return hashMap;
-        }
-        hashMap.put("msg",false);
-
-
-        return hashMap;
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/findManyLocationBycalid" )
-    public HashMap findManyLocationBycalid(Integer calid) {
-
-        HashMap hashMap=new HashMap();
-
-        List<Location> list=locationService.findLocationByLid(calid);
-
-        if( list.size()!=0) {
-            hashMap.put("locationlist",list);
-            hashMap.put("msg",true);
-
-            return hashMap;
-        }
-        hashMap.put("msg",false);
-
-        return hashMap;
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/findManyLoactionByslid" )
-    public HashMap findManyLoactionByslid(Integer slid) {
-
-        HashMap hashMap=new HashMap();
-
-        List<Location> list=locationService.findLocationByLid(slid);
+        List<Location> list=locationService.findLocationByLid(sid);
 
         if( list.size()!=0) {
             hashMap.put("locationlist",list);
@@ -140,9 +102,10 @@ public class LocationController {
         return hashMap;
     }
 
+
     @ResponseBody
-    @RequestMapping(value = "/pageManyLocation")
-    public  HashMap pageManyLocation(Integer pageNum,Integer pageSize) {
+    @RequestMapping(value = "/pageManyLocationBysid")
+    public HashMap pageManyLocationBysid(Integer sid,Integer pageNum,Integer pageSize) {
         if(pageNum==null){
             pageNum=1;
         }else if(pageNum<1){
@@ -154,62 +117,7 @@ public class LocationController {
         }
 
         PageHelper.startPage(pageNum, pageSize);
-        List<Location> list = locationService.findLocation();
-        PageInfo<Location> info = new PageInfo(list);
-        int totalPage=info.getPages();
-
-        HashMap hashMap=new HashMap();
-        hashMap.put("pagelocationlist",list);
-        hashMap.put("pageNum",pageNum);
-        hashMap.put("pageSize",pageSize);
-        hashMap.put("totalPage",totalPage);
-        return hashMap;
-
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/pageManyLocationBycalid")
-    public  HashMap pageManyLocationBycalid(Integer clid,Integer pageNum,Integer pageSize) {
-        if(pageNum==null){
-            pageNum=1;
-        }else if(pageNum<1){
-            pageNum=1;
-        }
-
-        if(pageSize==null){
-            pageSize=3;
-        }
-
-        PageHelper.startPage(pageNum, pageSize);
-        List<Location> list = locationService.findLocationByLid(clid);
-        PageInfo<Location> info = new PageInfo(list);
-        int totalPage=info.getPages();
-
-
-        HashMap hashMap=new HashMap();
-        hashMap.put("pagelocationlist",list);
-        hashMap.put("pageNum",pageNum);
-        hashMap.put("pageSize",pageSize);
-        hashMap.put("totalPage",totalPage);
-        return hashMap;
-
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/pageManyLocationByslid")
-    public HashMap pageManyLocationByslid(Integer slid,Integer pageNum,Integer pageSize) {
-        if(pageNum==null){
-            pageNum=1;
-        }else if(pageNum<1){
-            pageNum=1;
-        }
-
-        if(pageSize==null){
-            pageSize=3;
-        }
-
-        PageHelper.startPage(pageNum, pageSize);
-        List<Location> list = locationService.findLocationByLid(slid);
+        List<Location> list = locationService.findLocationBySid(sid);
         PageInfo<Location> info = new PageInfo(list);
         int totalPage=info.getPages();
 

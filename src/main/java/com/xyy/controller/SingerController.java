@@ -159,11 +159,11 @@ public class SingerController {
         }
 
         PageHelper.startPage(pageNum, pageSize);
-        List<Singer> list=null;
+        List<HashMap<String,Object>> list=null;
         if(sname!=null){
-            list = singerService.findSingerByName(sname);
+            list = singerService.findSingerByNameAlsoBackimg(sname);
         }else{
-            list = singerService.findSinger();
+            list = singerService.findSingerAlsoBackimg();
         }
 
         PageInfo<Singer> info = new PageInfo(list);

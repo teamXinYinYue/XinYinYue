@@ -2,6 +2,7 @@ package com.xyy.controller;
 
 import com.xyy.po.Location;
 import com.xyy.po.Music;
+import com.xyy.po.Singer;
 import com.xyy.service.LocationService;
 import com.xyy.service.MusicCategoryService;
 import com.xyy.service.MusicService;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -90,7 +92,7 @@ public class UploadController {
 
     @ResponseBody
     @RequestMapping(value = "uploadOneMusicByFormData",method = RequestMethod.POST)
-    public HashMap uploadOneMusicByFormData(HttpServletRequest request  , RedirectAttributes redirectAttrs) {
+    public HashMap uploadOneMusicByFormData(HttpSession session,HttpServletRequest request  , RedirectAttributes redirectAttrs) {
 
 
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
@@ -104,7 +106,14 @@ public class UploadController {
         Music music =  new Music();
         music.setM_name(mname);
         music.setCa_id(cid);
-        music.setS_id(Integer.parseInt(multipartRequest.getParameter("sid2")));
+        Singer singer = (Singer) session.getAttribute("singer");
+        if( singer!=null){
+            music.setS_id(singer.getS_id());
+        }else{
+            music.setS_id(Integer.parseInt(multipartRequest.getParameter("sid2")));
+        }
+
+
 
         music.setPriority(1);
         music.setHot(0);
