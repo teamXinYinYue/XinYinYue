@@ -20,65 +20,6 @@ public class SingerController {
     @Autowired
     private SingerService singerService;
 
-    @ResponseBody
-    @RequestMapping(value = "/findManySingerByNone" )
-    public HashMap findManySingerByNone() {
-
-        HashMap hashMap=new HashMap();
-
-        List<Singer> list=singerService.findSinger();
-
-        if( list.size()!=0) {
-
-            hashMap.put("singerlist",list);
-            hashMap.put("msg",true);
-
-            return hashMap;
-        }
-        hashMap.put("msg",false);
-
-        return hashMap;
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/findManySingerBysname" )
-    public HashMap findManySingerBysname(String sname) {
-
-        HashMap hashMap=new HashMap();
-
-        List<Singer> list=singerService.findSingerByName(sname);
-
-        if( list.size()!=0) {
-
-            hashMap.put("singerlist",list);
-            hashMap.put("msg",true);
-
-            return hashMap;
-        }
-        hashMap.put("msg",false);
-
-        return hashMap;
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/findManySingerBysid" )
-    public HashMap findManySingerBysid(Integer sid) {
-
-        HashMap hashMap=new HashMap();
-
-        List<Singer> list=singerService.findSingerBySid(sid);
-
-        if( list.size()!=0) {
-
-            hashMap.put("singerlist",list);
-            hashMap.put("msg",true);
-
-            return hashMap;
-        }
-        hashMap.put("msg",false);
-
-        return hashMap;
-    }
 
     @ResponseBody
     @RequestMapping(value = "/addOneSingerBysinger",method = RequestMethod.POST)
@@ -88,7 +29,6 @@ public class SingerController {
 
         Integer sid=singerService.insertSinger(singer);
 
-        singer.setS_id(sid);
         if(sid!=null) {
 
             hashMap.put("msg",true);
@@ -166,7 +106,7 @@ public class SingerController {
             list = singerService.findSingerAlsoBackimg();
         }
 
-        PageInfo<Singer> info = new PageInfo(list);
+        PageInfo<HashMap<String,Object>> info = new PageInfo(list);
         int totalPage=info.getPages();
 
         HashMap hashMap=new HashMap();

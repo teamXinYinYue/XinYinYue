@@ -3,6 +3,7 @@ package com.xyy.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xyy.po.Location;
+import com.xyy.po.Music;
 import com.xyy.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ public class LocationController {
 
     @Autowired
     private LocationService locationService;
+
 
 
     @ResponseBody
@@ -40,6 +42,7 @@ public class LocationController {
         return hashMap;
     }
 
+    //真正的增加图片功能在UploadController中
     @ResponseBody
     @RequestMapping(value = "/addOneLocationBylocation",method = RequestMethod.POST)
     public HashMap addOneLocationBylocation(@RequestBody Location location) {

@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findUserByName(String u_name) {
 		UserExample example = new UserExample();
-		example.createCriteria().andU_nameLike(u_name);
+		example.createCriteria().andU_nameLike('%'+u_name+'%');
 		List<User> userList = this.userMapper.selectByExample(example);
 		return userList;
 	}

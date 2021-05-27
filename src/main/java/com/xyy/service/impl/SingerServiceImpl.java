@@ -10,6 +10,7 @@ import com.xyy.service.SingerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,17 +41,17 @@ public class SingerServiceImpl implements SingerService {
         SingerExample example = new SingerExample();
         example.createCriteria().andS_idIsNotNull();
         List<Singer> singerList = this.singerMapper.selectByExample(example);
-        List<HashMap<String,Object>> list=null;
+        List<HashMap<String,Object>> list=new ArrayList();
         for (Singer singer:singerList) {
+            HashMap map=new HashMap();
+            map.put("s_id",singer.getS_id());
+            map.put("s_name",singer.getS_name());
+            map.put("s_info",singer.getS_info());
             LocationExample locationExample = new LocationExample();
             locationExample.createCriteria().andS_idEqualTo(singer.getS_id());
             locationExample.setOrderByClause("l_id desc limit 0,1");
             List<Location> locations = this.locationMapper.selectByExample(locationExample);
-            HashMap map=new HashMap();
             for(Location location:locations){
-                map.put("s_id",singer.getS_id());
-                map.put("s_name",singer.getS_name());
-                map.put("s_info",singer.getS_info());
                 map.put("l_id",location.getL_id());
                 map.put("i_path",location.getI_path());
                 map.put("i_info",location.getI_info());
@@ -76,17 +77,17 @@ public class SingerServiceImpl implements SingerService {
         SingerExample example = new SingerExample();
         example.createCriteria().andS_nameLike(s_name);
         List<Singer> singerList = this.singerMapper.selectByExample(example);
-        List<HashMap<String,Object>> list=null;
+        List<HashMap<String,Object>> list=new ArrayList();
         for (Singer singer:singerList) {
+            HashMap map=new HashMap();
+            map.put("s_id",singer.getS_id());
+            map.put("s_name",singer.getS_name());
+            map.put("s_info",singer.getS_info());
             LocationExample locationExample = new LocationExample();
             locationExample.createCriteria().andS_idEqualTo(singer.getS_id());
             locationExample.setOrderByClause("l_id desc limit 0,1");
             List<Location> locations = this.locationMapper.selectByExample(locationExample);
-            HashMap map=new HashMap();
             for(Location location:locations){
-                map.put("s_id",singer.getS_id());
-                map.put("s_name",singer.getS_name());
-                map.put("s_info",singer.getS_info());
                 map.put("l_id",location.getL_id());
                 map.put("i_path",location.getI_path());
                 map.put("i_info",location.getI_info());

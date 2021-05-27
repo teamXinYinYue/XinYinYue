@@ -59,8 +59,7 @@ public class TestController {
         User user1=new User();
         User user2=new User();
         List<User> list =new ArrayList<>();
-        user1.setPriority(1);
-        user2.setPriority(1);
+
         list.add(user1);
         list.add(user2);
         hashMap.put("list",list);

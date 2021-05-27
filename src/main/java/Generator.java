@@ -14,7 +14,7 @@ import java.util.List;
  * </p>
  *  
  * <p>
- * Description: TODO(这里用一句话描述这个类的作用) 
+ * Description: 生成器启动类
  * <p>
  * <p>
  * Company: www.itcast.com
@@ -25,7 +25,7 @@ public class Generator {
     public static void main(String[] args) throws Exception {
         List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
-        File configFile = new File("G:\\XinYinYue\\src\\generatorConfig.xml");
+        File configFile = new File("G:\\SPB\\XinYinYue\\src\\generatorConfig.xml");
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(configFile);
         DefaultShellCallback callback = new DefaultShellCallback(overwrite);

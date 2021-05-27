@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class CommentController {
     public HashMap addOneCommentByComment(@RequestBody Comment comment) {
 
         HashMap hashMap=new HashMap();
-
+        comment.setCo_date(new Date());
         int rows=commentService.insertComment(comment);
 
         if(rows>0) {

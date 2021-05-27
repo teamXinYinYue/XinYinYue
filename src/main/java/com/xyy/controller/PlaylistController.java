@@ -29,16 +29,16 @@ public class PlaylistController {
         if( list.size()!=0) {
 
             hashMap.put("playlistlist",list);
-
+            hashMap.put("msg",true);
             return hashMap;
         }
-        hashMap.put("msg","查找失败");
+        hashMap.put("msg",false);
         return hashMap;
     }
 
     @ResponseBody
     @RequestMapping(value = "/addOnePlaylistByplaylist",method = RequestMethod.POST)
-    public HashMap addOnePlaylistByplaylist(Playlist playlist) {
+    public HashMap addOnePlaylistByplaylist(@RequestBody Playlist playlist) {
 
         HashMap hashMap=new HashMap();
 

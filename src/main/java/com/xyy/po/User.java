@@ -21,8 +21,6 @@ public class User {
 
     private String sex;
 
-    private Integer priority;
-
     public Integer getU_id() {
         return u_id;
     }
@@ -77,13 +75,5 @@ public class User {
 
     public void setSex(String sex) {
         this.sex = sex == null ? null : sex.trim();
-    }
-
-    public Integer getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Integer priority) {
-        this.priority = priority;
     }
 }

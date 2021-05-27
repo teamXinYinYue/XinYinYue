@@ -16,8 +16,8 @@ public class PlmusicServiceImpl implements PlmusicService {
     private PlmusicMapper plmusicMapper;
 
     @Override
-    public int insertPlmusic(Integer[] plmids,String pname,Integer uid) {
-        for (Integer mid : plmids){
+    public int insertPlmusic(Integer[] mids,String pname,Integer uid) {
+        for (Integer mid : mids){
             Plmusic plmusic=new Plmusic();
             plmusic.setM_id(mid);
             plmusic.setP_name(pname);
@@ -30,8 +30,8 @@ public class PlmusicServiceImpl implements PlmusicService {
     }
 
     @Override
-    public int deletePlmusic(Integer[] plmids,String pname,Integer uid) {
-        for (Integer mid : plmids){
+    public int deletePlmusic(Integer[] mids,String pname,Integer uid) {
+        for (Integer mid : mids){
             if(this.plmusicMapper.deleteByPrimaryKey(mid
                     ,uid
                     ,pname

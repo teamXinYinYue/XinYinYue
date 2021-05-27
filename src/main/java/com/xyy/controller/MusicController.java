@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,9 +29,26 @@ public class MusicController {
     @Autowired
     private MusicCategoryService musicCategoryService;
 
+    //真正的增加歌曲功能在UploadController中
+    //测试类
     @ResponseBody
-    @RequestMapping(value = "/OrderManyMusicBysize" )
-    public HashMap OrderManyMusicBysize(Integer size) {
+    @RequestMapping(value = "/addOneMusicBymusic" )
+    public HashMap addOneMusicBymusic(@RequestBody Music music){
+        HashMap hashMap=new HashMap();
+        music.setMdate(new Date());
+        Integer m_id=musicService.insertMusic(music);
+        if(m_id!=null){
+            hashMap.put("msg",true);
+        } else {
+            hashMap.put("msg",false);
+        }
+        return hashMap;
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/orderManyMusicBysize" )
+    public HashMap orderManyMusicBysize(Integer size) {
 
         HashMap hashMap=new HashMap();
 
@@ -98,6 +116,26 @@ public class MusicController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/updateOneMusicHotBymid" ,method = RequestMethod.POST)
+    public HashMap updateOneMusicHotBymid(Integer mid) {
+
+        HashMap hashMap=new HashMap();
+
+        int rows=musicService.updateMusicHot(mid);
+
+        if(rows>0) {
+            hashMap.put("msg",true);
+
+
+        } else {
+            hashMap.put("msg",false);
+
+        }
+
+        return hashMap;
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/pageManyMusic")
     public HashMap pageManyMusic(Integer pageNum,Integer pageSize) {
         if(pageNum==null){
@@ -111,8 +149,8 @@ public class MusicController {
         }
 
         PageHelper.startPage(pageNum, pageSize);
-        List<Music> list = musicService.findMusic();
-        PageInfo<Music> info = new PageInfo(list);
+        List<HashMap<String,Object>> list = musicService.findMusic();
+        PageInfo<HashMap<String,Object>> info = new PageInfo(list);
         int totalPage=info.getPages();
 
         HashMap hashMap=new HashMap();
@@ -149,8 +187,8 @@ public class MusicController {
 
 
         PageHelper.startPage(pageNum, pageSize);
-        List<Music> list = musicService.findMusicByMC(cid,sid,mname);
-        PageInfo<Music> info = new PageInfo(list);
+        List<HashMap<String,Object>> list = musicService.findMusicByMC(cid,sid,mname);
+        PageInfo<HashMap<String,Object>> info = new PageInfo(list);
         int totalPage=info.getPages();
 
 

@@ -5,7 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="m_id" jdbcType="INTEGER" property="m_id" />
     <result column="co_info" jdbcType="VARCHAR" property="co_info" />
-    <result column="co_date" jdbcType="DATE" property="co_date" />
+    <result column="co_date" jdbcType="TIMESTAMP" property="co_date" />
     <result column="u_id" jdbcType="INTEGER" property="u_id" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -105,7 +105,7 @@
     </selectKey>
     insert into comment (m_id, co_info, co_date, 
       u_id)
-    values (#{m_id,jdbcType=INTEGER}, #{co_info,jdbcType=VARCHAR}, #{co_date,jdbcType=DATE}, 
+    values (#{m_id,jdbcType=INTEGER}, #{co_info,jdbcType=VARCHAR}, #{co_date,jdbcType=TIMESTAMP}, 
       #{u_id,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.xyy.po.Comment">
@@ -135,7 +135,7 @@
         #{co_info,jdbcType=VARCHAR},
       </if>
       <if test="co_date != null">
-        #{co_date,jdbcType=DATE},
+        #{co_date,jdbcType=TIMESTAMP},
       </if>
       <if test="u_id != null">
         #{u_id,jdbcType=INTEGER},
@@ -161,7 +161,7 @@
         co_info = #{record.co_info,jdbcType=VARCHAR},
       </if>
       <if test="record.co_date != null">
-        co_date = #{record.co_date,jdbcType=DATE},
+        co_date = #{record.co_date,jdbcType=TIMESTAMP},
       </if>
       <if test="record.u_id != null">
         u_id = #{record.u_id,jdbcType=INTEGER},
@@ -176,7 +176,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       m_id = #{record.m_id,jdbcType=INTEGER},
       co_info = #{record.co_info,jdbcType=VARCHAR},
-      co_date = #{record.co_date,jdbcType=DATE},
+      co_date = #{record.co_date,jdbcType=TIMESTAMP},
       u_id = #{record.u_id,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -192,7 +192,7 @@
         co_info = #{co_info,jdbcType=VARCHAR},
       </if>
       <if test="co_date != null">
-        co_date = #{co_date,jdbcType=DATE},
+        co_date = #{co_date,jdbcType=TIMESTAMP},
       </if>
       <if test="u_id != null">
         u_id = #{u_id,jdbcType=INTEGER},
@@ -204,7 +204,7 @@
     update comment
     set m_id = #{m_id,jdbcType=INTEGER},
       co_info = #{co_info,jdbcType=VARCHAR},
-      co_date = #{co_date,jdbcType=DATE},
+      co_date = #{co_date,jdbcType=TIMESTAMP},
       u_id = #{u_id,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

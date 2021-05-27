@@ -53,6 +53,15 @@ public class UserController {
 	}
 
 	@ResponseBody
+	@RequestMapping(value = "/logOutByNone",method = RequestMethod.POST)
+	public HashMap logOutByNone(HttpSession session) {
+		HashMap hashMap=new HashMap();
+		session.removeAttribute("login_user");
+		hashMap.put("msg",true);
+		return hashMap;
+	}
+
+	@ResponseBody
 	@RequestMapping(value = "/registerOneUserByuser",method = RequestMethod.POST)
 	public HashMap registerOneUserByuser(@Valid @RequestBody User user, BindingResult bindingResult,
                                          HttpSession session) {
@@ -73,11 +82,6 @@ public class UserController {
 		User userResult=new User();
 		userResult.setU_name(user.getU_name());
 		userResult.setPass_word(user.getPass_word());
-		if(user.getPriority()==null){
-			userResult.setPriority(1);
-		}else{
-			userResult.setPriority(user.getPriority());
-		}
 		userResult.setR_id(1);
 		userResult.setScore(0);
 		userResult.setSex(user.getSex());

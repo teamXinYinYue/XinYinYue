@@ -40,12 +40,12 @@ public class PlmusicController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/addManyPlmusicByplmidspnameuid",method = RequestMethod.POST)
-    public HashMap addManyPlmusicByplmidspnameuid(Integer[] plmids,String pname,Integer uid) {
+    @RequestMapping(value = "/addManyPlmusicBymidspnameuid",method = RequestMethod.POST)
+    public HashMap addManyPlmusicByplmidspnameuid(Integer[] mids,String pname,Integer uid) {
 
         HashMap hashMap=new HashMap();
 
-        int rows=plmusicService.insertPlmusic(plmids,pname,uid);
+        int rows=plmusicService.insertPlmusic(mids,pname,uid);
 
         if(rows>0) {
 
@@ -62,12 +62,12 @@ public class PlmusicController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/deleteManyPlmusicByplmidpnameuid",method = RequestMethod.POST)
-    public HashMap deleteManyPlmusicByplmidpnameuid(Integer[] plmids,String pname,Integer uid) {
+    @RequestMapping(value = "/deleteManyPlmusicBymidspnameuid",method = RequestMethod.POST)
+    public HashMap deleteManyPlmusicByplmidpnameuid(Integer[] mids,String pname,Integer uid) {
 
         HashMap hashMap=new HashMap();
 
-        int rows=plmusicService.deletePlmusic(plmids,pname,uid);
+        int rows=plmusicService.deletePlmusic(mids,pname,uid);
 
         if(rows>0) {
             hashMap.put("msg",true);
