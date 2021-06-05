@@ -114,16 +114,22 @@ public class UploadController {
         }
 
 
+        HashMap hashMap=new HashMap();
 
         music.setPriority(1);
         music.setHot(0);
         music.setMdate(new Date());
+        Integer m_id=musicService.insertMusic(music);
+        if(m_id==null) {
 
+            hashMap.put("msg",false);
+            return hashMap;
 
+        }
 
         String disklocation = request.getSession().getServletContext().getRealPath("/music");
 
-        String diskpath_file = disklocation+"/" + cname + "/" + mname;
+        String diskpath_file = disklocation+"/" + cname + "/" + m_id;
         String diskpath_dir=disklocation+"/" + cname;
 
         File dir=new File(diskpath_dir);
@@ -138,22 +144,19 @@ public class UploadController {
             e.printStackTrace();
         }
 
-        String path=request.getContextPath()+"/music/" + cname + "/"+ mname;
+        String path=request.getContextPath()+"/music/" + cname + "/"+ m_id;
 
         music.setPath(path);
-
-        HashMap hashMap=new HashMap();
-
-        Integer m_id=musicService.insertMusic(music);
-        if(m_id==null) {
-
-            hashMap.put("msg",false);
-
-        }else{
+        if(musicService.updateMusic(music)!=0){
             hashMap.put("msg",true);
-            hashMap.put("path",path);
             hashMap.put("mid",m_id);
+            hashMap.put("path",path);
+        }else{
+            hashMap.put("msg",false);
+            return hashMap;
         }
+
+
         return hashMap;
     }
 

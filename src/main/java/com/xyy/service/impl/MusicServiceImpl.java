@@ -35,7 +35,7 @@ public class MusicServiceImpl implements MusicService {
             List<Singer> singerList = this.singerMapper.selectByExample(singerExample);
             HashMap map=new HashMap();
             for(Singer singer:singerList){
-                map.put("m_id",music.getS_id());
+                map.put("m_id",music.getM_id());
                 map.put("m_name",music.getM_name());
                 map.put("priority",music.getPriority());
                 map.put("mdate",music.getMdate());
@@ -109,7 +109,7 @@ public class MusicServiceImpl implements MusicService {
             List<Singer> singerList = this.singerMapper.selectByExample(singerExample);
             HashMap map=new HashMap();
             for(Singer singer:singerList){
-                map.put("m_id",music.getS_id());
+                map.put("m_id",music.getM_id());
                 map.put("m_name",music.getM_name());
                 map.put("priority",music.getPriority());
                 map.put("mdate",music.getMdate());
