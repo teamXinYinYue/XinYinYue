@@ -55,7 +55,9 @@ public class UploadController {
         }
         name=prefix+name;
 
-        String disklocation = request.getSession().getServletContext().getRealPath("/picture");
+//        String disklocation = request.getSession().getServletContext().getRealPath("/picture");
+
+        String disklocation = "/usr/MyUpload/picture/";
 
         String diskpath_file = disklocation+"/" + name;
         String diskpath_dir=disklocation+"/";
@@ -127,7 +129,9 @@ public class UploadController {
 
         }
 
-        String disklocation = request.getSession().getServletContext().getRealPath("/music");
+//        String disklocation = request.getSession().getServletContext().getRealPath("/music");
+
+        String disklocation = "/usr/MyUpload/music/";
 
         String diskpath_file = disklocation+"/" + cname + "/" + m_id;
         String diskpath_dir=disklocation+"/" + cname;

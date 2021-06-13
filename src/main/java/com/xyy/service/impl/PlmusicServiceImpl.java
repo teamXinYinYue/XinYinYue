@@ -30,6 +30,20 @@ public class PlmusicServiceImpl implements PlmusicService {
     }
 
     @Override
+    public int insertPlmusic(Integer mid,String pname,Integer uid) {
+
+        Plmusic plmusic=new Plmusic();
+        plmusic.setM_id(mid);
+        plmusic.setP_name(pname);
+        plmusic.setU_id(uid);
+        if(this.plmusicMapper.insert(plmusic)==0){
+            throw new RuntimeException("未添加成功");
+        }
+
+        return 1;
+    }
+
+    @Override
     public int deletePlmusic(Integer[] mids,String pname,Integer uid) {
         for (Integer mid : mids){
             if(this.plmusicMapper.deleteByPrimaryKey(mid

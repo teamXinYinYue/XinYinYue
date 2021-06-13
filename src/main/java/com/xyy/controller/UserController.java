@@ -2,7 +2,9 @@ package com.xyy.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.xyy.po.Playlist;
 import com.xyy.po.User;
+import com.xyy.service.PlaylistService;
 import com.xyy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +25,8 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-
+	@Autowired
+	private PlaylistService playlistService;
 
 	@ResponseBody
 	@RequestMapping(value = "/loginOneUserByuser",method = RequestMethod.POST)
@@ -88,7 +91,14 @@ public class UserController {
 		userResult.setSign_info(user.getSign_info());
 		Integer uid=userService.insertUser(userResult);
 		userResult.setU_id(uid);
+
 		if(uid!=null) {
+
+			Playlist playlist = new Playlist();
+			playlist.setP_name("我喜欢的音乐");
+			playlist.setP_info("默认歌单");
+			playlist.setU_id(uid);
+			playlistService.insertPlaylist(playlist);
 
 			session.setAttribute("login_user", userResult);
 			hashMap.put("msg",true);

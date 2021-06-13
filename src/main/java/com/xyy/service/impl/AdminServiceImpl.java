@@ -3,6 +3,8 @@ package com.xyy.service.impl;
 import com.xyy.dao.AdminMapper;
 import com.xyy.po.Admin;
 import com.xyy.po.AdminExample;
+import com.xyy.po.User;
+import com.xyy.po.UserExample;
 import com.xyy.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

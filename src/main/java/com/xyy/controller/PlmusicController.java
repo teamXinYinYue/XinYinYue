@@ -40,8 +40,29 @@ public class PlmusicController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/addPlmusicBymiduid",method = RequestMethod.POST)
+    public HashMap addPlmusicBymiduid(Integer mid,Integer uid) {
+
+        HashMap hashMap=new HashMap();
+
+        int rows=plmusicService.insertPlmusic(mid,"我喜欢的音乐",uid);
+
+        if(rows>0) {
+
+            hashMap.put("msg",true);
+
+
+        }else{
+            hashMap.put("msg",false);
+
+        }
+
+        return hashMap;
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/addManyPlmusicBymidspnameuid",method = RequestMethod.POST)
-    public HashMap addManyPlmusicByplmidspnameuid(Integer[] mids,String pname,Integer uid) {
+    public HashMap addManyPlmusicBymidspnameuid(Integer[] mids,String pname,Integer uid) {
 
         HashMap hashMap=new HashMap();
 
